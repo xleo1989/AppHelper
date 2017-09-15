@@ -1,8 +1,8 @@
-# AppHelper （timetest xlog）
+# AppHelper （timetest xlog)
+---
+***example:***
 
-example:
-    TimeTest timeTest("className")
-    timeTest.check("checkpoint name")
-    timeTest.stop("method name")
-
-    XLog.d("tagname","message",1)
+      TimeTest timeTest("className")
+      timeTest.check("checkpoint name")
+      timeTest.stop("method name")
+      XLog.d("tagname","message",1)
