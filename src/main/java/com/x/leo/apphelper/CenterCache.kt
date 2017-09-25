@@ -30,22 +30,30 @@ object CenterCache {
         }
     }
 
-    @Synchronized fun  removeData(key: Int) {
+    @Synchronized fun removeData(key: Int) {
         cacheHolder.remove(key)
-        handleAction(key,DataCacheAction.REMOVE,null)
+        handleAction(key, DataCacheAction.REMOVE, null)
     }
 
     @Synchronized fun <T> getData(key: Int, clazz: Class<T>): T? {
         val legalValue = getLegalValue(cacheHolder.get(key), clazz)
-        handleAction(key,DataCacheAction.OBTAIN,legalValue)
+        handleAction(key, DataCacheAction.OBTAIN, legalValue)
         return legalValue
     }
 
-    private fun <T> getLegalValue(value: Object, clazz: Class<T>): T? {
-        if (value != null && value.`class`.isAssignableFrom(clazz)) {
+    private fun <T> getLegalValue(value: Object?, clazz: Class<T>): T? {
+        if (value == null) {
+            return null
+        } else if (clazz.equals(java.lang.Object::class.java)) {
+            return value as T
+        } else if (value.`class`.isAssignableFrom(clazz)) {
             return value as T
         } else {
-            return null
+            try {
+                return value as T
+            } catch (e: Exception) {
+                return null
+            }
         }
     }
 
@@ -64,8 +72,8 @@ object CenterCache {
                     DataCacheAction.REMOVE -> {
                         actionList[i].onDelete(key, result)
                     }
-                    DataCacheAction.OBTAIN->{
-                        actionList[i].onObtain(key,result)
+                    DataCacheAction.OBTAIN -> {
+                        actionList[i].onObtain(key, result)
                     }
                     else -> {
                         throw IllegalStateException("error data cache state")

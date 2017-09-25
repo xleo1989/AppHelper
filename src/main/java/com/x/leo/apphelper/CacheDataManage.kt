@@ -26,4 +26,9 @@ object CacheDataManage{
     fun <T> obtainData(key:Int,clazz: Class<T>):T?{
         return CenterCache.getData(key,clazz)
     }
+    fun <T> obtainAndRemove(key: Int,clazz: Class<T>):T?{
+        val result = CenterCache.getData(key,clazz)
+        CenterCache.removeData(key)
+        return result
+    }
 }

@@ -40,43 +40,8 @@ class TimeTest(val obj: String) {
 
     fun stop(method: String) {
         val stopTime = System.currentTimeMillis()
-        printTime(stopTime - initTime, method)
+        LocalPrinter.INSTANCE.printTime(obj,stopTime - initTime, method,checkPoint)
     }
 
-    private fun printTime(l: Long, method: String) {
 
-        val sb = StringBuilder("=")
-        var maxLength = 0
-        for (mutableEntry in checkPoint) {
-            val i = mutableEntry.key.length + mutableEntry.value.length
-            if (i > maxLength) {
-                maxLength = i
-            }
-        }
-
-        if (maxLength < method.length + l.toString().length) {
-            maxLength = method.length + l.toString().length
-        }
-        maxLength += (3 + "_usedTime:".length + " in ms".length)
-        if (obj.length + method.length + 3 > maxLength) {
-            maxLength = obj.length
-        }
-        for (i in 0..maxLength - 1) {
-            sb.append("=")
-        }
-        sb.append("===")
-        val withPre = sb.toString().replaceFirst("==", "||", true)
-        Log.d("TimeTest", sb.toString())
-        Log.d("TimeTest", "||" + obj + "." + method + "()")
-        if (checkPoint.size > 0) {
-            Log.d("TimeTest", withPre)
-            for (mutableEntry in checkPoint) {
-                Log.d("TimeTest", "||" + mutableEntry.key + "()" + "_usedTime:" + mutableEntry.value + " in ms")
-            }
-            Log.d("TimeTest", withPre)
-        }
-        Log.d("TimeTest", "||total_time:" + l)
-        Log.d("TimeTest", sb.toString())
-        checkPoint.clear()
-    }
 }

@@ -11,8 +11,8 @@ package com.x.leo.apphelper
  * @下一步：
  */
 abstract class CacheDataAdapter<T>:CacheDataListener<T>{
-    override external fun  onAdd(key: Int, t: T?)
-    override external fun  onAlter(key: Int, t: T?)
-    override external fun  onDelete(key: Int, t: T?)
-    override external fun  onObtain(key: Int, t: T?)
+    override  fun  onAdd(key: Int, t: T?){}
+    override  fun  onAlter(key: Int, t: T?){}
+    override  fun  onDelete(key: Int, t: T?){}
+    override  fun  onObtain(key: Int, t: T?){}
 }
