@@ -12,7 +12,7 @@ package com.x.leo.apphelper
  */
 abstract class CacheDataAdapter<T>:CacheDataListener<T>{
     override  fun  onAdd(key: Int, t: T?){}
-    override  fun  onAlter(key: Int, t: T?){}
+    override  fun  onAlter(key: Int, t: T?,isEqual:Boolean){}
     override  fun  onDelete(key: Int, t: T?){}
     override  fun  onObtain(key: Int, t: T?){}
 }

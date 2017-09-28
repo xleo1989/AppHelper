@@ -12,7 +12,7 @@ package com.x.leo.apphelper
  */
 interface CacheDataListener<T>{
     fun onAdd(key:Int,t: T?)
-    fun onAlter(key:Int,t: T?)
+    fun onAlter(key:Int,t: T?,isEqual:Boolean)
     fun onDelete(key:Int,t: T?)
     fun onObtain(key: Int,t:T?)
 }

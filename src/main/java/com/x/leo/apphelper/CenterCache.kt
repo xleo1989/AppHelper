@@ -25,19 +25,23 @@ object CenterCache {
             if (get == null) {
                 action = DataCacheAction.ADD
             }
+            var isEqual = false
+            if (action == DataCacheAction.ALTER) {
+                isEqual = get.equals(t)
+            }
             cacheHolder.put(key, t as Object)
-            handleAction<T>(key, action, t)
+            handleAction<T>(key, action, t,isEqual)
         }
     }
 
     @Synchronized fun removeData(key: Int) {
         cacheHolder.remove(key)
-        handleAction(key, DataCacheAction.REMOVE, null)
+        handleAction(key, DataCacheAction.REMOVE, null,false)
     }
 
     @Synchronized fun <T> getData(key: Int, clazz: Class<T>): T? {
         val legalValue = getLegalValue(cacheHolder.get(key), clazz)
-        handleAction(key, DataCacheAction.OBTAIN, legalValue)
+        handleAction(key, DataCacheAction.OBTAIN, legalValue,false)
         return legalValue
     }
 
@@ -57,7 +61,7 @@ object CenterCache {
         }
     }
 
-    private fun <T> handleAction(key: Int, action: DataCacheAction, t: T?) {
+    private fun <T> handleAction(key: Int, action: DataCacheAction, t: T?,isEqual:Boolean) {
         val actionList = ActionToTake.getActionList(key)
         if (actionList != null && actionList.size > 0) {
             val result = if (t == null) null else t as Object
@@ -67,7 +71,7 @@ object CenterCache {
                         actionList[i].onAdd(key, result)
                     }
                     DataCacheAction.ALTER -> {
-                        actionList[i].onAlter(key, result)
+                        actionList[i].onAlter(key, result,isEqual)
                     }
                     DataCacheAction.REMOVE -> {
                         actionList[i].onDelete(key, result)
