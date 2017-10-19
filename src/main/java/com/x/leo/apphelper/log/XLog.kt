@@ -1,4 +1,4 @@
-package com.x.leo.apphelper
+package com.x.leo.apphelper.log
 
 import android.util.Log
 
@@ -35,40 +35,40 @@ object XLog {
 
     fun d(tag:String,message:String,prioriety:Int){
         if (currentLogLevel <= DEBUG && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
-            logout { pre ->  Log.d(pre + tag,message) }
+            logout { pre -> Log.d(pre + tag, message) }
         }
     }
     fun v(tag: String,message: String,prioriety: Int){
         if (currentLogLevel <= VERBOSE && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
-            logout { pre ->  Log.v(pre + tag,message) }
+            logout { pre -> Log.v(pre + tag, message) }
         }
     }
 
     fun i(tag: String,message: String,prioriety: Int){
         if (currentLogLevel <= INFO && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
-            logout { pre ->  Log.i(pre + tag,message) }
+            logout { pre -> Log.i(pre + tag, message) }
         }
     }
 
     fun w(tag: String,message: String,prioriety: Int){
         if (currentLogLevel <= WARN && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
-            logout { pre ->  Log.w(pre + tag,message) }
+            logout { pre -> Log.w(pre + tag, message) }
         }
     }
 
     fun e(tag: String,message: String,prioriety: Int){
         if (currentLogLevel <= ERROR && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
-            logout { pre ->  Log.e(pre + tag,message) }
+            logout { pre -> Log.e(pre + tag, message) }
         }
     }
     fun a(tag: String,message: String,prioriety: Int){
         if (currentLogLevel <= ASSERT && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
-            logout { pre ->  Log.wtf(pre + tag,message) }
+            logout { pre -> Log.wtf(pre + tag, message) }
         }
     }
 
     private fun logout(func:(pre:String)->Unit){
-        Log.v("" + TOP_LEFT_CORNER,DOUBLE_DIVIDER)
+        Log.v("" + TOP_LEFT_CORNER, DOUBLE_DIVIDER)
         func.invoke("" + MIDDLE_CORNER)
         Log.v("" + BOTTOM_LEFT_CORNER, DOUBLE_DIVIDER)
     }

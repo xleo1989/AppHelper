@@ -1,4 +1,4 @@
-package com.x.leo.apphelper
+package com.x.leo.apphelper.data.cache
 
 /**
  * @作者:XLEO
@@ -12,22 +12,22 @@ package com.x.leo.apphelper
  */
 object CacheDataManage{
     fun  register(key: Int,listener: CacheDataListener<Object>){
-        ActionToTake.registerListener(key,listener)
+        ActionToTake.registerListener(key, listener)
     }
     fun unregister(key: Int,listener: CacheDataListener<Object>){
-        ActionToTake.unRegisterListener(key,listener)
+        ActionToTake.unRegisterListener(key, listener)
     }
     fun <T> addData(key: Int,data:T){
-        CenterCache.addData(key,data)
+        CenterCache.addData(key, data)
     }
     fun  removeData(key: Int){
         CenterCache.removeData(key)
     }
     fun <T> obtainData(key:Int,clazz: Class<T>):T?{
-        return CenterCache.getData(key,clazz)
+        return CenterCache.getData(key, clazz)
     }
     fun <T> obtainAndRemove(key: Int,clazz: Class<T>):T?{
-        val result = CenterCache.getData(key,clazz)
+        val result = CenterCache.getData(key, clazz)
         CenterCache.removeData(key)
         return result
     }

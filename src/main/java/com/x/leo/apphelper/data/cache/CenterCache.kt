@@ -1,4 +1,4 @@
-package com.x.leo.apphelper
+package com.x.leo.apphelper.data.cache
 
 import android.util.SparseArray
 
@@ -30,18 +30,18 @@ object CenterCache {
                 isEqual = get.equals(t)
             }
             cacheHolder.put(key, t as Object)
-            handleAction<T>(key, action, t,isEqual)
+            handleAction<T>(key, action, t, isEqual)
         }
     }
 
     @Synchronized fun removeData(key: Int) {
         cacheHolder.remove(key)
-        handleAction(key, DataCacheAction.REMOVE, null,false)
+        handleAction(key, DataCacheAction.REMOVE, null, false)
     }
 
     @Synchronized fun <T> getData(key: Int, clazz: Class<T>): T? {
         val legalValue = getLegalValue(cacheHolder.get(key), clazz)
-        handleAction(key, DataCacheAction.OBTAIN, legalValue,false)
+        handleAction(key, DataCacheAction.OBTAIN, legalValue, false)
         return legalValue
     }
 
@@ -61,7 +61,7 @@ object CenterCache {
         }
     }
 
-    private fun <T> handleAction(key: Int, action: DataCacheAction, t: T?,isEqual:Boolean) {
+    private fun <T> handleAction(key: Int, action: DataCacheAction, t: T?, isEqual:Boolean) {
         val actionList = ActionToTake.getActionList(key)
         if (actionList != null && actionList.size > 0) {
             val result = if (t == null) null else t as Object

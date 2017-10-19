@@ -1,4 +1,4 @@
-package com.x.leo.apphelper
+package com.x.leo.apphelper.log
 
 import android.util.Log
 
@@ -41,7 +41,7 @@ class LocalPrinter{
         sb.append("===")
         val withPre = sb.toString().replaceFirst("==", "||", true)
         Log.d("TimeTest", sb.toString())
-        Log.d("TimeTest", "||" + obj + "." + method + "()")
+        Log.d("TimeTest", "||" + obj + "" + method + "()")
         if (checkPoint != null && checkPoint.size > 0) {
             Log.d("TimeTest", withPre)
             for (mutableEntry in checkPoint) {

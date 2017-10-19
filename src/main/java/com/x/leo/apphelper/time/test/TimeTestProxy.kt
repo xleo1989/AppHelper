@@ -1,5 +1,6 @@
-package com.x.leo.apphelper
+package com.x.leo.apphelper.time.test
 
+import com.x.leo.apphelper.log.LocalPrinter
 import java.lang.reflect.Proxy
 
 /**

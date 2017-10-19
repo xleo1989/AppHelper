@@ -1,4 +1,4 @@
-package com.x.leo.apphelper
+package com.x.leo.apphelper.data.cache
 
 import android.util.SparseArray
 import java.util.*
@@ -14,25 +14,25 @@ import java.util.*
  * @下一步：
  */
 object ActionToTake{
-    val actionMap:SparseArray<LinkedList<CacheDataListener<java.lang.Object>>> by lazy {
-        SparseArray<LinkedList<CacheDataListener<java.lang.Object>>>()
+    val actionMap:SparseArray<LinkedList<CacheDataListener<Object>>> by lazy {
+        SparseArray<LinkedList<CacheDataListener<Object>>>()
     }
-    fun getActionList(key: Int):LinkedList<CacheDataListener<java.lang.Object>>? {
+    fun getActionList(key: Int):LinkedList<CacheDataListener<Object>>? {
         return actionMap.get(key)
     }
 
-    fun registerListener(key: Int,listener: CacheDataListener<java.lang.Object>){
+    fun registerListener(key: Int,listener: CacheDataListener<Object>){
         val get = actionMap.get(key)
         if (get != null) {
             get.add(listener)
         }else{
-            val list = LinkedList<CacheDataListener<java.lang.Object>>()
+            val list = LinkedList<CacheDataListener<Object>>()
             list.add(listener)
             actionMap.put(key,list)
         }
     }
 
-    fun unRegisterListener(key:Int,listener: CacheDataListener<java.lang.Object>){
+    fun unRegisterListener(key:Int,listener: CacheDataListener<Object>){
         val get = actionMap.get(key)
         if (get != null) {
             get.remove(listener)
