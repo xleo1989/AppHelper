@@ -1,6 +1,7 @@
 package com.x.leo.apphelper.time.test
 
 import com.x.leo.apphelper.log.LocalPrinter
+import com.x.leo.apphelper.log.StackInfoUtils
 
 /**
  * @作者:XLEO
@@ -12,9 +13,11 @@ import com.x.leo.apphelper.log.LocalPrinter
  * @更新描述:${TODO}
  * @下一步：
  */
-class TimeTest(val obj: String) {
+class TimeTest {
     var startTime: Long
     val initTime: Long
+    val doLog = true
+    private val stackTraceIndex = 4
     val checkPoint: LinkedHashMap<String, String> by lazy {
         LinkedHashMap<String, String>()
     }
@@ -28,19 +31,23 @@ class TimeTest(val obj: String) {
         startTime = System.currentTimeMillis()
     }
 
-    fun check(method: String) {
-        val stopTime = System.currentTimeMillis()
-        storeCheckPoint(method, stopTime - startTime)
-        reSet()
+    fun check(detail: String?) {
+        if (doLog) {
+            val stopTime = System.currentTimeMillis()
+            storeCheckPoint(StackInfoUtils.getMethodName(stackTraceIndex) + "() __" + detail, stopTime - startTime)
+            reSet()
+        }
     }
 
     private fun storeCheckPoint(method: String, l: Long) {
         checkPoint.put(method, l.toString())
     }
 
-    fun stop(method: String) {
-        val stopTime = System.currentTimeMillis()
-        LocalPrinter.INSTANCE.printTime(obj,stopTime - initTime, method,checkPoint)
+    fun stop() {
+        if (doLog) {
+            val stopTime = System.currentTimeMillis()
+            LocalPrinter.INSTANCE.printTime(StackInfoUtils.getClassName(stackTraceIndex) + "_", stopTime - initTime, StackInfoUtils.getMethodName(stackTraceIndex) + "()_(" + StackInfoUtils.getFileName(stackTraceIndex) + ":" + StackInfoUtils.getLineNumber(stackTraceIndex) + ")", checkPoint)
+        }
     }
 
 
