@@ -2,6 +2,7 @@ package com.x.leo.apphelper.utils
 
 import android.content.Context
 import android.content.pm.ApplicationInfo
+import android.os.Looper
 
 /**
  * @作者:XLEO
@@ -28,5 +29,9 @@ object AppStateUtils{
         }catch (e:Exception){
             return false
         }
+    }
+
+    fun isRunOnUIThread():Boolean{
+        return Looper.getMainLooper() == Looper.myLooper()
     }
 }

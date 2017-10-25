@@ -60,9 +60,9 @@ class NettyClient(private val protobuf: MessageLite) {
     }
 
     fun queryChannelState() {
-        XLog.d("QueryChannelState", "channelSize:" + channels.size, 10)
+        XLog.d( "channelSize:" + channels.size, 10)
         channels.forEach {
-            XLog.d("QueryChannelState", "channelName:" + it.toString() + "||channelWritable:" + it.isWritable + "||channelIsOpen:" + it.isOpen + "||channelIsActive:" + it.isActive, 10)
+            XLog.d( "channelName:" + it.toString() + "||channelWritable:" + it.isWritable + "||channelIsOpen:" + it.isOpen + "||channelIsActive:" + it.isActive, 10)
         }
     }
 
@@ -82,44 +82,43 @@ class NettyClient(private val protobuf: MessageLite) {
 }
 
 class ProspectorClientHandler : ChannelInboundHandlerAdapter() {
-    private val TAG = "ProspectorClientHandler"
     override fun channelReadComplete(ctx: ChannelHandlerContext?) {
         super.channelReadComplete(ctx)
-        XLog.d(TAG, "channelReadComplete==channelName:" + ctx?.channel()?.toString(), 10)
+        XLog.d("channelReadComplete==channelName:" + ctx?.channel()?.toString(), 10)
     }
 
     override fun channelInactive(ctx: ChannelHandlerContext?) {
         super.channelInactive(ctx)
-        XLog.d(TAG, "channelInactive==isActive" + ctx?.channel()?.isActive + "\nChannelName:" + ctx?.channel()?.toString(), 10)
+        XLog.d("channelInactive==isActive" + ctx?.channel()?.isActive + "\nChannelName:" + ctx?.channel()?.toString(), 10)
     }
 
     override fun channelRead(ctx: ChannelHandlerContext?, msg: Any?) {
         super.channelRead(ctx, msg)
-        XLog.d(TAG, "channelRead==msg" + msg?.toString() + "\nChannelName:" + ctx?.channel()?.toString(), 10)
+        XLog.d("channelRead==msg" + msg?.toString() + "\nChannelName:" + ctx?.channel()?.toString(), 10)
     }
 
     override fun userEventTriggered(ctx: ChannelHandlerContext?, evt: Any?) {
         super.userEventTriggered(ctx, evt)
-        XLog.d(TAG, "userEventTriggered==event" + evt.toString(), 10)
+        XLog.d("userEventTriggered==event" + evt.toString(), 10)
     }
 
     override fun handlerAdded(ctx: ChannelHandlerContext?) {
         super.handlerAdded(ctx)
-        XLog.d(TAG, "handlerAdded==currentChannel" + ctx?.channel()?.toString(), 10)
+        XLog.d("handlerAdded==currentChannel" + ctx?.channel()?.toString(), 10)
     }
 
     override fun exceptionCaught(ctx: ChannelHandlerContext?, cause: Throwable?) {
         super.exceptionCaught(ctx, cause)
-        XLog.e(TAG, "catchException==cause" + cause?.message, 100)
+        XLog.e("catchException==cause" + cause?.message, 100)
     }
 
     override fun channelUnregistered(ctx: ChannelHandlerContext?) {
         super.channelUnregistered(ctx)
-        XLog.d(TAG, "channelUnregistered==channelName:" + ctx?.channel()?.toString(), 10)
+        XLog.d("channelUnregistered==channelName:" + ctx?.channel()?.toString(), 10)
     }
 
     override fun channelWritabilityChanged(ctx: ChannelHandlerContext?) {
         super.channelWritabilityChanged(ctx)
-        XLog.d(TAG, "channelWritabilityChanged==channelName:" + ctx?.channel()?.toString(), 10)
+        XLog.d("channelWritabilityChanged==channelName:" + ctx?.channel()?.toString(), 10)
     }
 }
