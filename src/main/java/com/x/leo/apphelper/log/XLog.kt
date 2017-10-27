@@ -34,46 +34,49 @@ object XLog {
     private val SINGLE_DIVIDER = "────────────────────────────────────────────"
     private val methodIndex = 4
 
+    @JvmStatic
     fun d(message:String,prioriety:Int){
         if (currentLogLevel <= DEBUG && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.d(pre + tag, message) }
         }
     }
+    @JvmStatic
     fun v(message: String,prioriety: Int){
         if (currentLogLevel <= VERBOSE && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.v(pre + tag, message) }
         }
     }
-
+    @JvmStatic
     fun i(message: String,prioriety: Int){
         if (currentLogLevel <= INFO && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.i(pre + tag, message) }
         }
     }
-
+    @JvmStatic
     fun w(message: String,prioriety: Int){
         if (currentLogLevel <= WARN && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.w(pre + tag, message) }
         }
     }
-
+    @JvmStatic
     fun e(message: String,prioriety: Int){
         if (currentLogLevel <= ERROR && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.e(pre + tag, message) }
         }
     }
+    @JvmStatic
     fun a(message: String,prioriety: Int){
         if (currentLogLevel <= ASSERT && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.wtf(pre + tag, message) }
         }
     }
-
+    @JvmStatic
     private fun logout(func:(pre:String)->Unit){
         try {
             Log.v("" + TOP_LEFT_CORNER, DOUBLE_DIVIDER)

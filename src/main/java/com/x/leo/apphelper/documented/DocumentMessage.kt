@@ -32,11 +32,15 @@ class DocumentMessage {
         private val FILE_STATE = "document_message_file_state"
         private val STATE_SUFFIX = "_DOCUNENT_STATE"
         private var instance: DocumentMessage? = null
-        fun getInstance(ctx: Context): DocumentMessage {
+        private var ctx:Context? = null
+        fun initDocumentMessage(ctx: Context){
+            this@Companion.ctx = ctx
+        }
+        fun getDoc(): DocumentMessage {
             if (instance == null) {
                 synchronized(this) {
                     if (instance == null) {
-                        instance = DocumentMessage(ctx)
+                        instance = DocumentMessage(ctx!!)
                     }
                 }
             }
@@ -73,7 +77,7 @@ class DocumentMessage {
         return this
     }
 
-    fun putMessage(key: String, value: String): DocumentMessage {
+    fun putMessage(key: String, value: String?): DocumentMessage {
         checkFileCache()
         fileCache!!.edit().putString(key, value)
                 .putInt(FILE_STATE, FileState.FILE_ALTERED.ordinal)

@@ -68,6 +68,7 @@ class NettyClient(private val protobuf: MessageLite) {
 
     companion object {
         private var sNettyClient: NettyClient? = null
+        @JvmStatic
         fun getInstance(protobuf: MessageLite): NettyClient {
             if (sNettyClient == null) {
                 synchronized(NettyClient.javaClass, {
