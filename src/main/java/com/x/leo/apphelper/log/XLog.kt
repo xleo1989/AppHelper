@@ -14,7 +14,7 @@ import android.util.Log
  */
 object XLog {
 
-    val currentPrioriety: Int = 10 //0-OO
+    val currentPrioriety: Int = 0 //0-OO
     val isStrict: Boolean = false //限定唯一值
 
     val VERBOSE = 2

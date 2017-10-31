@@ -71,7 +71,9 @@ class DocumentMessage {
      * reset to unlock and clear choosed file holder,remember to call after use complete
      */
     fun reset(): DocumentMessage {
-        lockObj.unlock()
+        if (lockObj.isLocked) {
+            lockObj.unlock()
+        }
         fileCache == null
         fileName = null
         return this
