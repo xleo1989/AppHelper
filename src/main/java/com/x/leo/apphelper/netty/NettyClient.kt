@@ -110,7 +110,7 @@ class ProspectorClientHandler : ChannelInboundHandlerAdapter() {
 
     override fun exceptionCaught(ctx: ChannelHandlerContext?, cause: Throwable?) {
         super.exceptionCaught(ctx, cause)
-        XLog.e("catchException==cause" + cause?.message, 100)
+        XLog.e("catchException==cause" + cause?.message,cause, 10)
     }
 
     override fun channelUnregistered(ctx: ChannelHandlerContext?) {

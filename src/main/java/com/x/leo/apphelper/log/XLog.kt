@@ -24,7 +24,7 @@ object XLog {
     val ERROR = 6
     val ASSERT = 7
 
-    val currentLogLevel:Int = VERBOSE
+    val currentLogLevel: Int = VERBOSE
 
     private val TOP_LEFT_CORNER = '╔'
     private val BOTTOM_LEFT_CORNER = '╚'
@@ -35,57 +35,71 @@ object XLog {
     private val methodIndex = 4
 
     @JvmStatic
-    fun d(message:String,prioriety:Int){
-        if (currentLogLevel <= DEBUG && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
+    fun d(message: String, prioriety: Int) {
+        if (currentLogLevel <= DEBUG && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.d(pre + tag, message) }
         }
     }
+
     @JvmStatic
-    fun v(message: String,prioriety: Int){
-        if (currentLogLevel <= VERBOSE && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
+    fun v(message: String, prioriety: Int) {
+        if (currentLogLevel <= VERBOSE && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.v(pre + tag, message) }
         }
     }
+
     @JvmStatic
-    fun i(message: String,prioriety: Int){
-        if (currentLogLevel <= INFO && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
+    fun i(message: String, prioriety: Int) {
+        if (currentLogLevel <= INFO && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.i(pre + tag, message) }
         }
     }
+
     @JvmStatic
-    fun w(message: String,prioriety: Int){
-        if (currentLogLevel <= WARN && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
+    fun w(message: String, prioriety: Int) {
+        if (currentLogLevel <= WARN && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.w(pre + tag, message) }
         }
     }
+
     @JvmStatic
-    fun e(message: String,prioriety: Int){
-        if (currentLogLevel <= ERROR && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
+    fun e(message: String, e: Throwable?, prioriety: Int) {
+        if (currentLogLevel <= ERROR && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
-            logout { pre -> Log.e(pre + tag, message) }
+            logout { pre ->
+                val builder = StringBuilder(message + "\n")
+                if (e != null) {
+                    e.stackTrace.forEach {
+                        builder.append(it.className + "_" + it.methodName + "() :" + it.lineNumber + "\n")
+                    }
+                }
+                Log.e(pre + tag, builder.toString())
+            }
         }
     }
+
     @JvmStatic
-    fun a(message: String,prioriety: Int){
-        if (currentLogLevel <= ASSERT && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)){
+    fun a(message: String, prioriety: Int) {
+        if (currentLogLevel <= ASSERT && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.wtf(pre + tag, message) }
         }
     }
+
     @JvmStatic
-    private fun logout(func:(pre:String)->Unit){
+    private fun logout(func: (pre: String) -> Unit) {
         try {
             Log.v("" + TOP_LEFT_CORNER, DOUBLE_DIVIDER)
             Log.v("" + HORIZONTAL_DOUBLE_LINE, "Thread:" + Thread.currentThread().name + "(" + Thread.currentThread().id + ")____" + StackInfoUtils.getMethodName(methodIndex + 1) + "()(" + StackInfoUtils.getFileName(methodIndex + 1) + ":" + StackInfoUtils.getLineNumber(methodIndex + 1) + ")")
             Log.v("" + HORIZONTAL_DOUBLE_LINE, SINGLE_DIVIDER)
             func.invoke("" + MIDDLE_CORNER)
             Log.v("" + BOTTOM_LEFT_CORNER, DOUBLE_DIVIDER)
-        }catch (e:Exception){
-            Log.e("XLog","logout error",e)
+        } catch (e: Exception) {
+            Log.e("XLog", "logout error", e)
         }
     }
 }
