@@ -1,9 +1,10 @@
-package com.sulu.kotlin.utils
+package com.x.leo.apphelper.utils
 
 import android.graphics.drawable.Drawable
 import android.text.SpannableStringBuilder
 import android.text.TextPaint
 import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.text.style.ImageSpan
 import android.view.View
 
@@ -55,5 +56,11 @@ class SpanBuilder {
 
     private fun reset() {
         ssb.clear()
+    }
+
+    fun setColorSpan(start: Int, end: Int,color: Int): SpanBuilder {
+        val colorSpan = ForegroundColorSpan(color)
+        ssb.setSpan(colorSpan,start, end, SpannableStringBuilder.SPAN_EXCLUSIVE_EXCLUSIVE)
+        return this
     }
 }
