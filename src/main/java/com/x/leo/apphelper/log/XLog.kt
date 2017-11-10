@@ -74,7 +74,11 @@ object XLog {
                 val builder = StringBuilder(message + "\n")
                 if (e != null) {
                     e.stackTrace.forEach {
-                        builder.append(it.className + "_" + it.methodName + "() :" + it.lineNumber + "\n")
+                        try {
+                            builder.append(it.className + "_" + it.methodName + "() :" + it.lineNumber + "\n")
+                        }catch (e:Throwable){
+                            e.printStackTrace()
+                        }
                     }
                 }
                 Log.e(pre + tag, builder.toString())
