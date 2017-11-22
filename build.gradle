@@ -31,4 +31,15 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile "io.netty:netty-all:$rootProject.ext.nettyVersion"
     compile "com.google.protobuf:protobuf-java:$rootProject.ext.protobufVersion"
+
+    // okhttp
+    compile "com.squareup.okhttp3:okhttp:$rootProject.ext.okhttpVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okhttpVersion"
+    // retrofit
+    compile "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava:$rootProject.ext.retrofitVersion"
+    // rx
+    compile "io.reactivex:rxandroid:$rootProject.ext.rxandroidVersion"
+    compile "io.reactivex:rxjava:$rootProject.ext.rxjavaVersion"
 }

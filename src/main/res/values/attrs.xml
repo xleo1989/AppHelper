@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SecretEditText">
+        <attr name="spanSize" format="dimension"/>
+        <attr name="hasBorder" format="boolean"/>
+        <attr name="sborderWidth" format="dimension"/>
+        <attr name="sborderColor" format="color"/>
+        <attr name="spanCount" format="integer"/>
+        <attr name="sradius" format="dimension"/>
+    </declare-styleable>
+</resources>
