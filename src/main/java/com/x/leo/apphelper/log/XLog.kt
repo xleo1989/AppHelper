@@ -1,6 +1,10 @@
 package com.x.leo.apphelper.log
 
+import android.app.Application
+import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.util.Log
+import com.x.leo.apphelper.BuildConfig
 
 /**
  * @作者:XLEO
@@ -33,7 +37,29 @@ object XLog {
     private val DOUBLE_DIVIDER = "════════════════════════════════════════════"
     private val SINGLE_DIVIDER = "────────────────────────────────────────────"
     private val methodIndex = 4
-
+    private var doDebug:Int = 0
+    private val DO_LOG = 0x0011
+    private val NOT_DO_LOG = 0x0022
+    fun initStatus(ctx: Context){
+        if (doDebug == 0) {
+            if (isInDebug(ctx)) {
+                doDebug = DO_LOG
+            }else{
+                doDebug = NOT_DO_LOG
+            }
+        }
+    }
+    private fun isInDebug(ctx:Context):Boolean{
+        return if (BuildConfig.DEBUG) {
+            true
+        }else{
+            try {
+                ctx.applicationInfo.flags.and(ApplicationInfo.FLAG_DEBUGGABLE) != 0
+            }catch (e:Exception){
+                false
+            }
+        }
+    }
     @JvmStatic
     fun d(message: String, prioriety: Int) {
         if (currentLogLevel <= DEBUG && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {

@@ -11,20 +11,20 @@ package com.x.leo.apphelper.log
  * @下一步：
  */
 object StackInfoUtils{
-    fun getFileName(stackTraceIndex:Int):String{
+    fun getFileName(stackTraceIndex:Int):String?{
         val stackTrace = Thread.currentThread().stackTrace
-        return stackTrace[if (stackTrace.size > stackTraceIndex) stackTraceIndex else stackTrace.size - 1].fileName
+        return stackTrace[if (stackTrace.size > stackTraceIndex) stackTraceIndex else stackTrace.size - 1]?.fileName
     }
-    fun getClassName(stackTraceIndex:Int):String{
+    fun getClassName(stackTraceIndex:Int):String?{
         val stackTrace = Thread.currentThread().stackTrace
-        return stackTrace[if (stackTrace.size > stackTraceIndex) stackTraceIndex else stackTrace.size - 1].className
+        return stackTrace[if (stackTrace.size > stackTraceIndex) stackTraceIndex else stackTrace.size - 1]?.className
     }
-    fun getMethodName(stackTraceIndex:Int):String{
+    fun getMethodName(stackTraceIndex:Int):String?{
         val stackTrace = Thread.currentThread().stackTrace
-        return stackTrace[if (stackTrace.size > stackTraceIndex) stackTraceIndex else stackTrace.size - 1].methodName
+        return stackTrace[if (stackTrace.size > stackTraceIndex) stackTraceIndex else stackTrace.size - 1]?.methodName
     }
-    fun getLineNumber(stackTraceIndex:Int):Int{
+    fun getLineNumber(stackTraceIndex:Int):Int?{
         val stackTrace = Thread.currentThread().stackTrace
-        return stackTrace[if (stackTrace.size > stackTraceIndex) stackTraceIndex else stackTrace.size - 1].lineNumber
+        return stackTrace[if (stackTrace.size > stackTraceIndex) stackTraceIndex else stackTrace.size - 1]?.lineNumber
     }
 }
