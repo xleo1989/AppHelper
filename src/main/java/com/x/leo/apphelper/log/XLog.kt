@@ -1,6 +1,10 @@
 package com.x.leo.apphelper.log
 
+import android.app.Application
+import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.util.Log
+import com.x.leo.apphelper.BuildConfig
 
 /**
  * @作者:XLEO
@@ -33,9 +37,31 @@ object XLog {
     private val DOUBLE_DIVIDER = "════════════════════════════════════════════"
     private val SINGLE_DIVIDER = "────────────────────────────────────────────"
     private val methodIndex = 4
-
+    private var doDebug:Int = 0
+    private val DO_LOG = 0x0011
+    private val NOT_DO_LOG = 0x0022
+    fun initStatus(ctx: Context){
+        if (doDebug == 0) {
+            if (isInDebug(ctx)) {
+                doDebug = DO_LOG
+            }else{
+                doDebug = NOT_DO_LOG
+            }
+        }
+    }
+    private fun isInDebug(ctx:Context):Boolean{
+        return if (BuildConfig.DEBUG) {
+            true
+        }else{
+            try {
+                ctx.applicationInfo.flags.and(ApplicationInfo.FLAG_DEBUGGABLE) != 0
+            }catch (e:Exception){
+                false
+            }
+        }
+    }
     @JvmStatic
-    fun d(message: String, prioriety: Int) {
+    fun d(message: String?, prioriety: Int) {
         if (currentLogLevel <= DEBUG && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.d(pre + tag, message) }
@@ -43,7 +69,7 @@ object XLog {
     }
 
     @JvmStatic
-    fun v(message: String, prioriety: Int) {
+    fun v(message: String?, prioriety: Int) {
         if (currentLogLevel <= VERBOSE && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.v(pre + tag, message) }
@@ -59,7 +85,7 @@ object XLog {
     }
 
     @JvmStatic
-    fun w(message: String, prioriety: Int) {
+    fun w(message: String?, prioriety: Int) {
         if (currentLogLevel <= WARN && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.w(pre + tag, message) }
@@ -67,7 +93,7 @@ object XLog {
     }
 
     @JvmStatic
-    fun e(message: String, e: Throwable?, prioriety: Int) {
+    fun e(message: String?, e: Throwable?, prioriety: Int) {
         if (currentLogLevel <= ERROR && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre ->
@@ -87,7 +113,7 @@ object XLog {
     }
 
     @JvmStatic
-    fun a(message: String, prioriety: Int) {
+    fun a(message: String?, prioriety: Int) {
         if (currentLogLevel <= ASSERT && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.wtf(pre + tag, message) }
