@@ -2,9 +2,7 @@ package com.x.leo.apphelper.utils
 
 import android.content.Context
 import android.content.pm.ApplicationInfo
-import android.graphics.Rect
 import android.os.Looper
-import android.view.View
 
 /**
  * @作者:XLEO
@@ -35,17 +33,5 @@ object AppStateUtils{
 
     fun isRunOnUIThread():Boolean{
         return Looper.getMainLooper() == Looper.myLooper()
-    }
-
-    fun isKeyboardShown(rootView:View):Boolean{
-        val softKeyboardHeight = rootView.resources.displayMetrics.heightPixels * 0.2
-        val r = Rect()
-        rootView.getWindowVisibleDisplayFrame(r)
-        val heightDiff = rootView.bottom - r.bottom
-        return heightDiff > softKeyboardHeight
-    }
-
-    fun isNetWorkUseable(applicationContext: Context?) {
-
     }
 }

@@ -18,12 +18,12 @@ import java.util.concurrent.locks.ReentrantLock
  */
 class DocumentMessage {
     private val ctx: Context
-//    private val lockObj:ReentrantLock
+    private val lockObj:ReentrantLock
     private var fileName:String?
     private var fileCache: SharedPreferences? = null
     private constructor(ctx: Context) {
         this.ctx = ctx
-//        lockObj = ReentrantLock()
+        lockObj = ReentrantLock()
         fileName = null
     }
 
@@ -37,17 +37,14 @@ class DocumentMessage {
             this@Companion.ctx = ctx
         }
         fun getDoc(): DocumentMessage {
-//            if (instance == null) {
-//                synchronized(this) {
-//                    if (instance == null) {
-//                        instance = DocumentMessage(ctx!!)
-//                    }
-//                    return@getDoc this.instance as DocumentMessage
-//                }
-//            }else {
-//                return instance!!
-//            }
-            return DocumentMessage(ctx!!)
+            if (instance == null) {
+                synchronized(this) {
+                    if (instance == null) {
+                        instance = DocumentMessage(ctx!!)
+                    }
+                }
+            }
+            return instance!!
         }
     }
 
@@ -56,7 +53,7 @@ class DocumentMessage {
      * 指定文件，在使用之前设置,使用之后释放锁
      */
     fun setFileName(fileName: String): DocumentMessage {
-//        lockObj.lock()
+        lockObj.lock()
         fileCache = ctx.getSharedPreferences(fileName, Context.MODE_PRIVATE)
         this.fileName = fileName
         if (fileCache!!.getInt(FILE_STATE, -1) == -1) {
@@ -74,9 +71,9 @@ class DocumentMessage {
      * reset to unlock and clear choosed file holder,remember to call after use complete
      */
     fun reset(): DocumentMessage {
-//        if (lockObj.isLocked) {
-//            lockObj.unlock()
-//        }
+        if (lockObj.isLocked) {
+            lockObj.unlock()
+        }
         fileCache == null
         fileName = null
         return this
@@ -91,7 +88,7 @@ class DocumentMessage {
     }
     private fun checkFileCache() {
         if (fileCache == null) {
-//            lockObj.lock()
+            lockObj.lock()
             fileCache = ctx.getSharedPreferences(DEFAULT_FILE_NAME, Context.MODE_PRIVATE)
             fileName = DEFAULT_FILE_NAME
             if (fileCache!!.getInt(FILE_STATE, FileState.FILE_NOT_EXISTED.ordinal) == FileState.FILE_NOT_EXISTED.ordinal) {

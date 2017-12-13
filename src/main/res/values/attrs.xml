@@ -8,14 +8,4 @@
         <attr name="spanCount" format="integer"/>
         <attr name="sradius" format="dimension"/>
     </declare-styleable>
-
-    <declare-styleable name="SelfSplitEditText">
-        <!--<attr name="firstSplitIndex" format="integer"/>-->
-        <!--<attr name="splitLength" format="integer"/>-->
-        <attr name="contentInputType" format="enum">
-            <enum name="TYPE_PHONE" value="0"/>
-            <enum name="TYPE_CARD" value="1"/>
-            <enum name="TYPE_IDCARD" value="2"/>
-        </attr>
-    </declare-styleable>
 </resources>
