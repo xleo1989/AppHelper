@@ -14,15 +14,15 @@ class PermissionRequester {
     fun requestPermissions(activity: Activity, permissions: Array<String>, code: Int, subscriber: Subscriber<Map<String, Boolean>>) {
         try {
             myWay(activity, code, subscriber, permissions)
-        }catch (e:Throwable){
-            XLog.e(e.message?:e.localizedMessage,e,100)
+        } catch (e: Throwable) {
+            XLog.e(e.message ?: e.localizedMessage, e, 100)
         }
     }
 
     private fun myWay(activity: Activity, code: Int, subscriber: Subscriber<Map<String, Boolean>>, permissions: Array<String>) {
         val result = LinkedHashMap<String, Boolean>()
         if (Build.VERSION.SDK_INT >= 23) {
-            val permissionFragment = getPermissionFragment(activity,code,subscriber,result)
+            val permissionFragment = getPermissionFragment(activity, code, subscriber, result)
             val needRequestArray = ArrayList<String>()
             permissions.forEach {
                 when (activity.checkSelfPermission(it)) {
@@ -37,13 +37,12 @@ class PermissionRequester {
                         needRequestArray.add(it)
                     }
                 }
-                if (needRequestArray.size > 0) {
-                    permissionFragment.requestPermissions(needRequestArray.toArray(arrayOfNulls(needRequestArray.size)),code)
-                } else {
-                    subscriber.onNext(result)
-                }
             }
-
+            if (needRequestArray.size > 0) {
+                permissionFragment.requestPermissions(needRequestArray.toArray(arrayOfNulls(needRequestArray.size)), code)
+            } else {
+                subscriber.onNext(result)
+            }
 
         } else {
             permissions.forEach {
@@ -57,7 +56,7 @@ class PermissionRequester {
         var findFragmentByTag = activity.fragmentManager.findFragmentByTag("permissionFragment")
         if (findFragmentByTag == null) {
             findFragmentByTag = PermissionFragment()
-            activity.fragmentManager.beginTransaction().add(findFragmentByTag,"permissionFragment").commitAllowingStateLoss()
+            activity.fragmentManager.beginTransaction().add(findFragmentByTag, "permissionFragment").commitAllowingStateLoss()
             activity.fragmentManager.executePendingTransactions()
         }
         (findFragmentByTag as PermissionFragment).subScriber = subscriber
@@ -67,14 +66,14 @@ class PermissionRequester {
     }
 }
 
-class PermissionFragment: Fragment() {
-    var subScriber:Subscriber<Map<String,Boolean>>? = null
-    var requestCode:Int = 0
-    var resultMap:MutableMap<String,Boolean>? = null
+class PermissionFragment : Fragment() {
+    var subScriber: Subscriber<Map<String, Boolean>>? = null
+    var requestCode: Int = 0
+    var resultMap: MutableMap<String, Boolean>? = null
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (subScriber != null) {
-            if (requestCode  == requestCode) {
+            if (requestCode == requestCode) {
                 if (permissions != null) {
                     permissions.forEachIndexed { index, s ->
                         resultMap!!.put(s, grantResults[index] == PackageManager.PERMISSION_GRANTED)
