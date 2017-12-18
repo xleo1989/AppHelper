@@ -41,7 +41,7 @@ public class OSUtils {
             try {
                 return ROM_TYPE.valueOf(message);
             }catch (Exception e){
-                XLog.e("",e,100);
+                XLog.INSTANCE.e("",e,100);
             }
         }
 
