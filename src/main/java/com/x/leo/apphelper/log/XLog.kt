@@ -60,7 +60,7 @@ object XLog {
             }
         }
     }
-    @JvmStatic
+
     fun d(message: String?, prioriety: Int) {
         if (currentLogLevel <= DEBUG && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
@@ -68,7 +68,7 @@ object XLog {
         }
     }
 
-    @JvmStatic
+
     fun v(message: String?, prioriety: Int) {
         if (currentLogLevel <= VERBOSE && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
@@ -76,7 +76,7 @@ object XLog {
         }
     }
 
-    @JvmStatic
+
     fun i(message: String, prioriety: Int) {
         if (currentLogLevel <= INFO && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
@@ -84,7 +84,7 @@ object XLog {
         }
     }
 
-    @JvmStatic
+
     fun w(message: String?, prioriety: Int) {
         if (currentLogLevel <= WARN && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
@@ -92,7 +92,7 @@ object XLog {
         }
     }
 
-    @JvmStatic
+
     fun e(message: String?, e: Throwable?, prioriety: Int) {
         if (currentLogLevel <= ERROR && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
@@ -112,7 +112,7 @@ object XLog {
         }
     }
 
-    @JvmStatic
+
     fun a(message: String?, prioriety: Int) {
         if (currentLogLevel <= ASSERT && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
@@ -120,7 +120,7 @@ object XLog {
         }
     }
 
-    @JvmStatic
+
     private fun logout(func: (pre: String) -> Unit) {
         try {
             Log.v("" + TOP_LEFT_CORNER, DOUBLE_DIVIDER)
