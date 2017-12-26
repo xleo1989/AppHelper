@@ -141,4 +141,19 @@ class DocumentMessage {
         return result
     }
 
+    fun getBoolean(key: String,defValue: Boolean): Boolean? {
+        checkFileCache()
+        val string = fileCache?.getBoolean(key, defValue)
+        fileCache!!.edit().putInt(FILE_STATE, FileState.FILE_READED.ordinal).putBoolean(key + STATE_SUFFIX, false).apply()
+        return string
+    }
+
+    fun putBoolean(key: String, value: Boolean):DocumentMessage {
+        checkFileCache()
+        fileCache!!.edit().putBoolean(key, value)
+                .putInt(FILE_STATE, FileState.FILE_ALTERED.ordinal)
+                .putBoolean(key + STATE_SUFFIX, true).apply()
+        return this
+    }
+
 }
