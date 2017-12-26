@@ -1,21 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SecretEditText">
-        <attr name="spanSize" format="dimension"/>
-        <attr name="hasBorder" format="boolean"/>
-        <attr name="sborderWidth" format="dimension"/>
-        <attr name="sborderColor" format="color"/>
-        <attr name="spanCount" format="integer"/>
-        <attr name="sradius" format="dimension"/>
+        <attr name="spanSize" format="dimension" />
+        <attr name="hasBorder" format="boolean" />
+        <attr name="sborderWidth" format="dimension" />
+        <attr name="sborderColor" format="color" />
+        <attr name="spanCount" format="integer" />
+        <attr name="sradius" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="SelfSplitEditText">
         <!--<attr name="firstSplitIndex" format="integer"/>-->
         <!--<attr name="splitLength" format="integer"/>-->
         <attr name="contentInputType" format="enum">
-            <enum name="TYPE_PHONE" value="0"/>
-            <enum name="TYPE_CARD" value="1"/>
-            <enum name="TYPE_IDCARD" value="2"/>
+            <enum name="TYPE_PHONE" value="0" />
+            <enum name="TYPE_CARD" value="1" />
+            <enum name="TYPE_IDCARD" value="2" />
         </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="LocalTextView">
+        <attr name="tActionName" format="string" />
+    </declare-styleable>
+
+
+    <declare-styleable name="LocalEditText">
+        <attr name="legalInputPattern" format="string"/>
+        <attr name="eActionName" format="string" />
+        <attr name="alertColor" format="color" />
+        <attr name="legalPattern" format="string" />
+        <attr name="scrollParent" format="reference" />
+    </declare-styleable>
+
+
+    <declare-styleable name="LocalImageView">
+        <attr name="iActionName" format="string" />
+
+    </declare-styleable>
+
+
+    <declare-styleable name="LocalButton">
+        <attr name="bActionName" format="string" />
+
+    </declare-styleable>
+
+
+    <declare-styleable name="LocalImageButton">
+
+        <attr name="ibActionName" format="string" />
+
     </declare-styleable>
 </resources>

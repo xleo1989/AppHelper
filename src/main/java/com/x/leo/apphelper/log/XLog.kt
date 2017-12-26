@@ -1,6 +1,5 @@
 package com.x.leo.apphelper.log
 
-import android.app.Application
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.util.Log
@@ -18,17 +17,17 @@ import com.x.leo.apphelper.BuildConfig
  */
 object XLog {
 
-    val currentPrioriety: Int = 0 //0-OO
-    val isStrict: Boolean = false //限定唯一值
+    private val currentPrioriety: Int = 0 //0-OO
+    private val isStrict: Boolean = false //限定唯一值
 
-    val VERBOSE = 2
-    val DEBUG = 3
-    val INFO = 4
-    val WARN = 5
-    val ERROR = 6
-    val ASSERT = 7
+    private val VERBOSE = 0x0020
+    val DEBUG = 0x0030
+    private val INFO = 0x0040
+    private val WARN = 0x0050
+    private val ERROR = 0x0060
+    private val ASSERT = 0x0070
 
-    val currentLogLevel: Int = VERBOSE
+    private val currentLogLevel: Int = VERBOSE
 
     private val TOP_LEFT_CORNER = '╔'
     private val BOTTOM_LEFT_CORNER = '╚'
@@ -42,12 +41,15 @@ object XLog {
     private val NOT_DO_LOG = 0x0022
     fun initStatus(ctx: Context){
         if (doDebug == 0) {
-            if (isInDebug(ctx)) {
-                doDebug = DO_LOG
+            doDebug = if (isInDebug(ctx)) {
+                DO_LOG
             }else{
-                doDebug = NOT_DO_LOG
+                NOT_DO_LOG
             }
         }
+    }
+    private fun isLogable():Boolean{
+       return doDebug == DO_LOG
     }
     private fun isInDebug(ctx:Context):Boolean{
         return if (BuildConfig.DEBUG) {
@@ -62,7 +64,7 @@ object XLog {
     }
 
     fun d(message: String?, prioriety: Int) {
-        if (currentLogLevel <= DEBUG && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
+        if (isLogable()&&currentLogLevel <= DEBUG && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.d(pre + tag, message) }
         }
@@ -70,7 +72,7 @@ object XLog {
 
 
     fun v(message: String?, prioriety: Int) {
-        if (currentLogLevel <= VERBOSE && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
+        if (isLogable()&&currentLogLevel <= VERBOSE && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.v(pre + tag, message) }
         }
@@ -78,7 +80,7 @@ object XLog {
 
 
     fun i(message: String, prioriety: Int) {
-        if (currentLogLevel <= INFO && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
+        if (isLogable()&&currentLogLevel <= INFO && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.i(pre + tag, message) }
         }
@@ -86,7 +88,7 @@ object XLog {
 
 
     fun w(message: String?, prioriety: Int) {
-        if (currentLogLevel <= WARN && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
+        if (isLogable()&&currentLogLevel <= WARN && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.w(pre + tag, message) }
         }
@@ -94,17 +96,15 @@ object XLog {
 
 
     fun e(message: String?, e: Throwable?, prioriety: Int) {
-        if (currentLogLevel <= ERROR && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
+        if (isLogable()&&currentLogLevel <= ERROR && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre ->
                 val builder = StringBuilder(message + "\n")
-                if (e != null) {
-                    e.stackTrace.forEach {
-                        try {
-                            builder.append(it.className + "_" + it.methodName + "() :" + it.lineNumber + "\n")
-                        }catch (e:Throwable){
-                            e.printStackTrace()
-                        }
+                e?.stackTrace?.forEach {
+                    try {
+                        builder.append(it.className + "_" + it.methodName + "() :" + it.lineNumber + "\n")
+                    }catch (e:Throwable){
+                        e.printStackTrace()
                     }
                 }
                 Log.e(pre + tag, builder.toString())
@@ -114,7 +114,7 @@ object XLog {
 
 
     fun a(message: String?, prioriety: Int) {
-        if (currentLogLevel <= ASSERT && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
+        if (isLogable()&&currentLogLevel <= ASSERT && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre -> Log.wtf(pre + tag, message) }
         }
