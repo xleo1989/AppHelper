@@ -33,7 +33,7 @@ open class LocalEditText(ctx: Context, attributeSet: AttributeSet?) : EditText(c
         if (attributeSet != null) {
             val attrs = ctx.obtainStyledAttributes(attributeSet, R.styleable.LocalEditText)
             if (attrs.hasValue(R.styleable.LocalEditText_eActionName)) {
-                actionName = attrs.getString(R.styleable.LocalTextView_tActionName)
+                actionName = attrs.getString(R.styleable.LocalEditText_eActionName)
             }
 
             if (attrs.hasValue(R.styleable.LocalEditText_legalInputPattern)) {
