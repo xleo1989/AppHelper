@@ -156,4 +156,19 @@ class DocumentMessage {
         return this
     }
 
+    fun putLong(key: String, value: Long): DocumentMessage {
+        checkFileCache()
+        fileCache!!.edit().putLong(key, value)
+                .putInt(FILE_STATE, FileState.FILE_ALTERED.ordinal)
+                .putBoolean(key + STATE_SUFFIX, true).apply()
+        return this
+    }
+
+    fun getLong(key: String): Long? {
+        checkFileCache()
+        val string = fileCache?.getLong(key, -1L)
+        fileCache!!.edit().putInt(FILE_STATE, FileState.FILE_READED.ordinal).putBoolean(key + STATE_SUFFIX, false).apply()
+        return string
+    }
+
 }

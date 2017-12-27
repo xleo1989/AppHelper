@@ -48,4 +48,5 @@ dependencies {
     // rx
     compile "io.reactivex:rxandroid:$rootProject.ext.rxandroidVersion"
     compile "io.reactivex:rxjava:$rootProject.ext.rxjavaVersion"
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.3@aar'
 }
