@@ -29,11 +29,13 @@ open class LocalTextView(ctx:Context,attributeSet: AttributeSet?):TextView(ctx,a
         }
     }
 
-    override fun setText(text:CharSequence,type:BufferType){
+    override fun setText(text:CharSequence?,type:BufferType?){
         if (actionName != null) {
             ActionTraceManager.textChange(actionName,this.text,text,this)
         }
-        textChangeFunc?.invoke(text)
+        if (text != null) {
+            textChangeFunc?.invoke(text)
+        }
         super.setText(text, type)
     }
 
