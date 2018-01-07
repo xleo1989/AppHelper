@@ -66,7 +66,7 @@ object XLog {
     fun d(message: String?, prioriety: Int) {
         if (isLogable()&&currentLogLevel <= DEBUG && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
-            logout { pre -> Log.d(pre + tag, message) }
+            logout { pre -> Log.i(pre + tag, message) }
         }
     }
 
@@ -123,11 +123,11 @@ object XLog {
 
     private fun logout(func: (pre: String) -> Unit) {
         try {
-            Log.v("" + TOP_LEFT_CORNER, DOUBLE_DIVIDER)
-            Log.v("" + HORIZONTAL_DOUBLE_LINE, "Thread:" + Thread.currentThread().name + "(" + Thread.currentThread().id + ")____" + StackInfoUtils.getMethodName(methodIndex + 1) + "()(" + StackInfoUtils.getFileName(methodIndex + 1) + ":" + StackInfoUtils.getLineNumber(methodIndex + 1) + ")")
-            Log.v("" + HORIZONTAL_DOUBLE_LINE, SINGLE_DIVIDER)
+            Log.i("" + TOP_LEFT_CORNER, DOUBLE_DIVIDER)
+            Log.i("" + HORIZONTAL_DOUBLE_LINE, "Thread:" + Thread.currentThread().name + "(" + Thread.currentThread().id + ")____" + StackInfoUtils.getMethodName(methodIndex + 1) + "()(" + StackInfoUtils.getFileName(methodIndex + 1) + ":" + StackInfoUtils.getLineNumber(methodIndex + 1) + ")")
+            Log.i("" + HORIZONTAL_DOUBLE_LINE, SINGLE_DIVIDER)
             func.invoke("" + MIDDLE_CORNER)
-            Log.v("" + BOTTOM_LEFT_CORNER, DOUBLE_DIVIDER)
+            Log.i("" + BOTTOM_LEFT_CORNER, DOUBLE_DIVIDER)
         } catch (e: Exception) {
             Log.e("XLog", "logout error", e)
         }
