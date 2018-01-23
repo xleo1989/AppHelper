@@ -36,7 +36,7 @@ class SoftSpanPopEditText {
                     var scrolledHeight = vr.bottom - r.bottom
                     if (scrollRes != -1) {
                         try {
-                            val find = currentView.rootView.findViewById(scrollRes) as ScrollView
+                            val find = currentView.rootView.findViewById<ScrollView>(scrollRes)
                             val childAt = find.getChildAt(0)
                             if (childAt != null) {
                                 if (childAt.height + find.paddingTop + find.paddingBottom + childAt.top - find.height > scrolledHeight) {
@@ -59,7 +59,7 @@ class SoftSpanPopEditText {
                 currentView.clearFocus()
                 if (scrollRes != -1) {
                     try {
-                        val find = currentView.rootView.findViewById(scrollRes) as ScrollView
+                        val find = currentView.rootView.findViewById<ScrollView>(scrollRes)
                         val childAt = find.getChildAt(0)
                         if (childAt != null) {
                             val rect = Rect()
