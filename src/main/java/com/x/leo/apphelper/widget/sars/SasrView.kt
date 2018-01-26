@@ -29,7 +29,7 @@ open class SasrView(ctx: Context, attributeSet: AttributeSet?) : android.support
     }
 
 
-    fun setDatas(data: ArrayList<SasrDataInterface>) {
+    fun setDatas(data: ArrayList<out SasrDataInterface>) {
         datas.clear()
         datas.addAll(data)
         adapter.notifyDataSetChanged()
@@ -42,6 +42,12 @@ open class SasrView(ctx: Context, attributeSet: AttributeSet?) : android.support
     fun setResult(result: SasrDataInterface) {
         (adapter as SasrAdapter<*>).headerData = result
         adapter.notifyDataSetChanged()
+    }
+
+    fun setOnHeaderClickListener(l:SasrAdapter.OnItemClickListener) {
+        if (adapter != null) {
+            (adapter as SasrAdapter<*>).setOnHeaderClickListener(l)
+        }
     }
 }
 

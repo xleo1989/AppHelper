@@ -51,7 +51,12 @@ open class SasrAdapter<T:SasrHolder>(val datas: ArrayList<SasrDataInterface>, va
     override fun onBindViewHolder(holder: T?, position: Int) {
         when (getItemViewType(position)) {
             1 -> {
-                holder?.initView(headerData, position - 1, onHeaderClickListener)
+                holder?.initView(headerData, position - 1, object :OnItemClickListener{
+                    override fun onItemClick(itemView: View, position: Int) {
+                        customerOnHeaderClickListener?.onItemClick(itemView,position)
+                        onHeaderClickListener?.onItemClick(itemView,position)
+                    }
+                })
             }
             else -> {
                 holder?.initView(datas[position - 1], position - 1, baseListener)
@@ -73,5 +78,11 @@ open class SasrAdapter<T:SasrHolder>(val datas: ArrayList<SasrDataInterface>, va
 
     interface OnItemClickListener {
         fun onItemClick(itemView: View, position: Int)
+    }
+
+    private  var customerOnHeaderClickListener: OnItemClickListener? = null
+
+    fun setOnHeaderClickListener(l: OnItemClickListener) {
+        customerOnHeaderClickListener = l
     }
 }
