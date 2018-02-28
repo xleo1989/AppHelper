@@ -46,17 +46,14 @@ object CenterCache {
     }
 
     private fun <T> getLegalValue(value: Object?, clazz: Class<T>): T? {
-        if (value == null) {
-            return null
-        } else if (clazz.equals(java.lang.Object::class.java)) {
-            return value as T
-        } else if (value.`class`.isAssignableFrom(clazz)) {
-            return value as T
-        } else {
-            try {
-                return value as T
+        return when {
+            value == null -> null
+            clazz == java.lang.Object::class.java -> value as T
+            value.`class`.isAssignableFrom(clazz) -> value as T
+            else -> try {
+                value as T
             } catch (e: Exception) {
-                return null
+                null
             }
         }
     }
@@ -65,7 +62,7 @@ object CenterCache {
         val actionList = ActionToTake.getActionList(key)
         if (actionList != null && actionList.size > 0) {
             val result = if (t == null) null else t as Object
-            for (i in 0..actionList.size - 1) {
+            for (i in 0 until actionList.size) {
                 when (action) {
                     DataCacheAction.ADD -> {
                         actionList[i].onAdd(key, result)
