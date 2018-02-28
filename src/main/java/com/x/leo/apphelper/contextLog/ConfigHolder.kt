@@ -12,7 +12,7 @@ object ConfigHolder {
     val DEVICE_SDK: String by lazy { "device_sdk" }
     val DEVICE_ID: String by lazy { "device_id" }
     val UUID_ID: String by lazy { "uuid_id" }
-    val WIFI_STATUS: String by lazy { "wifi_status" }
+    val NETWORK_STATUS: String by lazy { "wifi_status" }
     val DEVICE_TYPE: String by lazy { "device_type" }
     val ANDROID_ID: String by lazy { "android_id" }
     val DEVICE_SCREEN_WIDTH:String by lazy { "device_screen_width" }
@@ -31,7 +31,8 @@ object ConfigHolder {
     /**
      * sim
      */
-    val SIM_SERIAL: String by lazy { "sim_serial" }
+    val MAIN_SIM_SERIAL: String by lazy { "main_sim_serial" }
+    val EXTRA_SIM_SERIAL:String by lazy { "extra_sim_serial" }
     val DEVICE_MAIN_PHONE_TYPE: String by lazy { "device_main_phone_type" }
     val DEVICE_EXTRA_PHONE_TYPE:String by lazy { "device_extra_phone_type" }
     val DEVICE_MAIN_PHONE_NUMBEN: String by lazy { "device_main_phone_number" }
