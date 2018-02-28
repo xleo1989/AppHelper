@@ -100,9 +100,10 @@ open class ContextLog {
                         return
                 1->
                         initialDefaultSimInfo(tm,sp)
-                else->
-                        initialDefaultSimInfo(tm,sp)
-                        initialExtraSimInfo(tm,sp)
+                else-> {
+                    initialDefaultSimInfo(tm, sp)
+                    initialExtraSimInfo(tm, sp)
+                }
             }
 
 
@@ -111,7 +112,7 @@ open class ContextLog {
         }
     }
 
-    private fun initialExtraSimInfo(tm: Unit, sp: SharedPreferences) {
+    private fun initialExtraSimInfo(tm: TelephonyManager, sp: SharedPreferences) {
     }
 
     @SuppressLint("MissingPermission")
