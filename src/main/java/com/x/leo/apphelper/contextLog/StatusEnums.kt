@@ -8,5 +8,5 @@ enum class NetworkStatus{
 }
 
 enum class DeviceType{
-    PHONE,TV,WEAR,PAD,OTHER
+    PHONE,TV,WEAR,TABLET,OTHER
 }

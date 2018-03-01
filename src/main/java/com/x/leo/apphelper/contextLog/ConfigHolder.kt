@@ -12,13 +12,14 @@ object ConfigHolder {
     val DEVICE_SDK: String by lazy { "device_sdk" }
     val DEVICE_ID: String by lazy { "device_id" }
     val UUID_ID: String by lazy { "uuid_id" }
-    val NETWORK_STATUS: String by lazy { "wifi_status" }
+    val NETWORK_STATUS: String by lazy { "network_status" }
     val DEVICE_TYPE: String by lazy { "device_type" }
     val ANDROID_ID: String by lazy { "android_id" }
     val DEVICE_SCREEN_WIDTH:String by lazy { "device_screen_width" }
     val DEVICE_SCREEN_HEIGHT:String by lazy { "device_screen_height" }
     val DEVICE_CUSTOME_SIGNATURE:String by lazy { "device_custome_signature" }
     val DEVICE_BUILD_SERIAL:String by lazy { "device_build_serial" }
+    val DEVICE_IS_ROOTED:String by lazy { "device_is_rooted" }
     /**
      * app
      */
@@ -39,6 +40,14 @@ object ConfigHolder {
     val DEVICE_EXTRA_PHONE_NUMBER:String by lazy { "device_extra_phone_number" }
     val DEVICE_MAIN_PHONE_SERVER:String by lazy { "device_main_phone_server" }
     val DEVICE_EXTRA_PHONE_SERVER:String by lazy { "device_extra_phone_server" }
+    val EXTRA_DEVICE_ID: String by lazy { "extra_device_id" }
+
+    /**
+     * 硬件
+     */
+    val CPU_SERIAL: String by lazy { "cup_info" }
+    val MAC_ADDRESS: String by lazy { "mac_address" }
+    val HARDWARE_SERIAL: String by lazy { "hardware_serial" }
 
 
 }

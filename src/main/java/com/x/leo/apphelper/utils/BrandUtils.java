@@ -22,9 +22,36 @@ import java.util.Properties;
  */
 public class BrandUtils {
 
+    /**
+     * 华为
+     */
     public static final String SYS_EMUI = "sys_emui";
+    /**
+     * 小米
+     */
     public static final String SYS_MIUI = "sys_miui";
+    /**
+     * 魅族
+     */
     public static final String SYS_FLYME = "sys_flyme";
+
+    public static final String SYS_OPPO = "sys_oppo";
+    public static final String SYS_VIVO = "sys_vivo";
+    public static final String SYS_SAMSUNG = "sys_samsung";
+    public static final String SYS_HTC = "sys_htc";
+    public static final String SYS_LG = "sys_lg";
+    public static final String SYS_ZTE = "sys_zte";
+    /**
+     * 锤子
+     */
+    public static final String SYS_SMARTISAN = "sys_smartisan";
+    public static final String SYS_360 = "sys_360";
+
+    public static final String KEY_OPPO_ROM = "ro.build.version.opporom";
+    public static final String KEY_VIVO_VERSION = "ro.vivo.os.version";
+    public static final String KEY_SMARTISAN_VERSION = "ro.smartisan.version";
+    public static final String KEY_360_MANUFACTURER = "QIKU";
+    public static final String KEY_360_MANUFACTURER2 = "360";
     private static final String KEY_MIUI_VERSION_CODE = "ro.miui.ui.version.code";
     private static final String KEY_MIUI_VERSION_NAME = "ro.miui.ui.version.name";
     private static final String KEY_MIUI_INTERNAL_STORAGE = "ro.miui.internal.storage";
@@ -49,6 +76,7 @@ public class BrandUtils {
 
     /**
      * 获取系统信息
+     *
      * @param info
      */
     private static void getSystem(SystemInfo info) {
@@ -71,6 +99,38 @@ public class BrandUtils {
                 info.os = SYS_FLYME;//魅族
                 info.versionCode = 0;
                 info.versionName = "unknown";
+            } else if (prop.getProperty(KEY_OPPO_ROM, null) != null) {
+                info.os = SYS_OPPO;
+                info.versionCode = 0;
+                info.versionName = "unknown";
+            }else if (prop.getProperty(KEY_VIVO_VERSION,null) != null){
+                info.os = SYS_VIVO;
+                info.versionCode = 0;
+                info.versionName = prop.getProperty(KEY_VIVO_VERSION,null);
+            }else if (prop.getProperty(KEY_SMARTISAN_VERSION,null) != null){
+                info.os = SYS_SMARTISAN;
+                info.versionCode = 0;
+                info.versionName = prop.getProperty(KEY_SMARTISAN_VERSION,null);
+            }else if(Build.MANUFACTURER != null
+                    && (Build.MANUFACTURER.equalsIgnoreCase(KEY_360_MANUFACTURER)
+                    || Build.MANUFACTURER.equalsIgnoreCase(KEY_360_MANUFACTURER2))){
+                info.os = SYS_360;
+                info.versionCode = 0;
+                info.versionName = prop.getProperty(KEY_SMARTISAN_VERSION,null);
+            }else{
+                String manufacturer = Build.MANUFACTURER;
+                if (manufacturer != null) {
+                    String lManuf = manufacturer.toLowerCase();
+                    if (lManuf.contains("htc")) {
+                        info.os = SYS_HTC;
+                    }else if (lManuf.contains("samsung")){
+                        info.os = SYS_SAMSUNG;
+                    }else if(lManuf.contains("lg")){
+                        info.os = SYS_LG;
+                    }else if (lManuf.contains("zte")){
+                        info.os = SYS_ZTE;
+                    }
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -93,6 +153,7 @@ public class BrandUtils {
 
     /**
      * 跳转应用设置中心
+     *
      * @param activity
      */
     public static void settingPermissionActivity(Activity activity) {
