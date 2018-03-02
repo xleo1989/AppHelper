@@ -101,7 +101,7 @@ object XLog {
         if (isLogable() && currentLogLevel <= ERROR && (prioriety == currentPrioriety || prioriety >= currentPrioriety && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex)
             logout { pre ->
-                val builder = StringBuilder("" + message + "\n" + e?.javaClass?.name + "\n")
+                val builder = StringBuilder("" + message + "\n" + e?.javaClass?.name + "\n" + e?.message + "\n")
                 e?.stackTrace?.forEach {
                     try {
                         builder.append(it.className + "_" + it.methodName + "() :(" + it.fileName + ":" + it.lineNumber + ")\n")
