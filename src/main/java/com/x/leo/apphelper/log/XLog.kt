@@ -67,20 +67,24 @@ object XLog {
     }
 
     fun d(message: String?, priority: Int) {
+        d(message, priority, 1)
+    }
+
+    private fun d(message: String?, priority: Int, extra: Int) {
         if (isLoggable() && currentLogLevel <= DEBUG && (priority == currentPriority || priority >= currentPriority && !isStrict)) {
-            val tag = StackInfoUtils.getFileName(methodIndex)
+            val tag = StackInfoUtils.getFileName(methodIndex + extra)
             logout { pre -> Log.i(pre + tag, message) }
         }
     }
 
     fun d(priority: Int, vararg message: String?) {
         val messageResult: String = formatMessages(message)
-        d(messageResult, priority)
+        d(messageResult, priority, 1)
     }
 
-    fun d(priority: Int,  message: String?,vararg args:Any?) {
-        val messageResult: String = formatMessages(message,args)
-        d(messageResult, priority)
+    fun d(priority: Int, message: String?, vararg args: Any?) {
+        val messageResult: String = formatMessages(message, args)
+        d(messageResult, priority, 1)
     }
 
     fun v(message: String?, priority: Int) {
@@ -91,20 +95,24 @@ object XLog {
     }
 
     fun i(message: String?, priority: Int) {
+        i(message, priority, 1)
+    }
+
+    private fun i(message: String?, priority: Int, extra: Int) {
         if (isLoggable() && currentLogLevel <= INFO && (priority == currentPriority || priority >= currentPriority && !isStrict)) {
-            val tag = StackInfoUtils.getFileName(methodIndex)
+            val tag = StackInfoUtils.getFileName(methodIndex + extra)
             logout { pre -> Log.i(pre + tag, message) }
         }
     }
 
     fun i(priority: Int, vararg message: String?) {
         val messageResult: String = formatMessages(message)
-        i(messageResult, priority)
+        i(messageResult, priority, 1)
     }
 
-    fun i(priority: Int,  message: String?,vararg args:Any?) {
-        val messageResult: String = formatMessages(message,args)
-        i(messageResult, priority)
+    fun i(priority: Int, message: String?, vararg args: Any?) {
+        val messageResult: String = formatMessages(message, args)
+        i(messageResult, priority, 1)
     }
 
     private fun formatMessages(message: Array<out String?>): String {
@@ -144,9 +152,9 @@ object XLog {
         w(messageResult, priority)
     }
 
-    fun e(message: String?, e: Throwable?, priority: Int) {
+    private fun e(message: String?, e: Throwable?, priority: Int, extra: Int) {
         if (isLoggable() && currentLogLevel <= ERROR && (priority == currentPriority || priority >= currentPriority && !isStrict)) {
-            val tag = StackInfoUtils.getFileName(methodIndex)
+            val tag = StackInfoUtils.getFileName(methodIndex + extra)
             logout { pre ->
                 val builder = StringBuilder("" + message + "\n" + e?.javaClass?.name + "\n" + e?.message + "\n")
                 e?.stackTrace?.forEach {
@@ -161,14 +169,18 @@ object XLog {
         }
     }
 
+    fun e(message: String?, e: Throwable?, priority: Int) {
+        e(message, e, priority, 1)
+    }
+
     fun e(priority: Int, e: Throwable?, vararg message: String?) {
         val messageResult: String = formatMessages(message)
-        e(messageResult, e, priority)
+        e(messageResult, e, priority, 1)
     }
 
     fun e(priority: Int, e: Throwable?, message: String?, vararg args: Any?) {
         val messageResult: String = formatMessages(message, args)
-        e(messageResult, e, priority)
+        e(messageResult, e, priority, 1)
     }
 
     fun a(message: String?, priority: Int) {
@@ -186,7 +198,7 @@ object XLog {
     private fun logout(func: (pre: String) -> Unit) {
         try {
             Log.i("" + TOP_LEFT_CORNER, DOUBLE_DIVIDER)
-            Log.i("" + HORIZONTAL_DOUBLE_LINE, "Thread:" + Thread.currentThread().name + "(" + Thread.currentThread().id + ")____" + StackInfoUtils.getMethodName(methodIndex + 1) + "()(" + StackInfoUtils.getFileName(methodIndex + 1) + ":" + StackInfoUtils.getLineNumber(methodIndex + 1) + ")")
+            Log.i("" + HORIZONTAL_DOUBLE_LINE, "Thread:" + Thread.currentThread().name + "(" + Thread.currentThread().id + ")____" + StackInfoUtils.getMethodName(methodIndex + 2) + "()(" + StackInfoUtils.getFileName(methodIndex + 2) + ":" + StackInfoUtils.getLineNumber(methodIndex + 2) + ")")
             Log.i("" + HORIZONTAL_DOUBLE_LINE, SINGLE_DIVIDER)
             func.invoke("" + MIDDLE_CORNER)
             Log.i("" + BOTTOM_LEFT_CORNER, DOUBLE_DIVIDER)
