@@ -29,7 +29,7 @@ open class SasrAdapter<T:SasrHolder>(val datas: ArrayList<SasrDataInterface>, va
         override var title: String? = "请选择"
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): T {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): T {
         return if (parent != null) {
             val itemView = when (viewType) {
                 1 -> {
@@ -48,7 +48,7 @@ open class SasrAdapter<T:SasrHolder>(val datas: ArrayList<SasrDataInterface>, va
         }
     }
 
-    override fun onBindViewHolder(holder: T?, position: Int) {
+    override fun onBindViewHolder(holder: T, position: Int) {
         when (getItemViewType(position)) {
             1 -> {
                 holder?.initView(headerData, position - 1, object :OnItemClickListener{

@@ -14,7 +14,7 @@ import com.x.leo.apphelper.widget.sars.SasrHolder
 open class SasrHolderExample(view: View, viewType: Int) : SasrHolder(view,viewType) {
     override fun injectItem(sarsDataInterface: SasrDataInterface, position: Int, onItemClickListener: SasrAdapter.OnItemClickListener?) {
         try {
-            (itemView.findViewById(R.id.tv_item) as TextView).text = sarsDataInterface.title
+            itemView.findViewById<TextView>(R.id.tv_item).text = sarsDataInterface.title
         } catch (e: Exception) {
             XLog.e(e.message, e, 100)
         }
@@ -22,7 +22,7 @@ open class SasrHolderExample(view: View, viewType: Int) : SasrHolder(view,viewTy
 
     override fun injectHeader(sarsDataInterface: SasrDataInterface, position: Int, onItemClickListener: SasrAdapter.OnItemClickListener?) {
         try {
-            (itemView.findViewById(R.id.tv_header) as TextView).text = sarsDataInterface.title
+            itemView.findViewById<TextView>(R.id.tv_header).text = sarsDataInterface.title
         } catch (e: Exception) {
             XLog.e(e.message, e, 100)
         }
