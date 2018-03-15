@@ -33,9 +33,6 @@ object ActionToTake{
     }
 
     fun unRegisterListener(key:Int,listener: CacheDataListener<Object>){
-        val get = actionMap.get(key)
-        if (get != null) {
-            get.remove(listener)
-        }
+        actionMap.get(key)?.remove(listener)
     }
 }

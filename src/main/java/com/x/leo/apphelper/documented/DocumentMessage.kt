@@ -18,9 +18,10 @@ import java.util.concurrent.locks.ReentrantLock
  */
 class DocumentMessage {
     private val ctx: Context
-//    private val lockObj:ReentrantLock
-    private var fileName:String?
+    //    private val lockObj:ReentrantLock
+    private var fileName: String?
     private var fileCache: SharedPreferences? = null
+
     private constructor(ctx: Context) {
         this.ctx = ctx
 //        lockObj = ReentrantLock()
@@ -32,10 +33,16 @@ class DocumentMessage {
         private val FILE_STATE = "document_message_file_state"
         private val STATE_SUFFIX = "_DOCUNENT_STATE"
         private var instance: DocumentMessage? = null
-        private var ctx:Context? = null
-        fun initDocumentMessage(ctx: Context){
+        private var ctx: Context? = null
+
+        fun isInitComplete(): Boolean {
+            return ctx == null
+        }
+
+        fun initDocumentMessage(ctx: Context) {
             this@Companion.ctx = ctx
         }
+
         fun getDoc(): DocumentMessage {
 //            if (instance == null) {
 //                synchronized(this) {
@@ -66,7 +73,7 @@ class DocumentMessage {
         return this
     }
 
-    fun getFileName():String?{
+    fun getFileName(): String? {
         return fileName
     }
 
@@ -89,6 +96,7 @@ class DocumentMessage {
                 .putBoolean(key + STATE_SUFFIX, true).apply()
         return this
     }
+
     private fun checkFileCache() {
         if (fileCache == null) {
 //            lockObj.lock()
@@ -141,14 +149,14 @@ class DocumentMessage {
         return result
     }
 
-    fun getBoolean(key: String,defValue: Boolean): Boolean? {
+    fun getBoolean(key: String, defValue: Boolean): Boolean? {
         checkFileCache()
         val string = fileCache?.getBoolean(key, defValue)
         fileCache!!.edit().putInt(FILE_STATE, FileState.FILE_READED.ordinal).putBoolean(key + STATE_SUFFIX, false).apply()
         return string
     }
 
-    fun putBoolean(key: String, value: Boolean):DocumentMessage {
+    fun putBoolean(key: String, value: Boolean): DocumentMessage {
         checkFileCache()
         fileCache!!.edit().putBoolean(key, value)
                 .putInt(FILE_STATE, FileState.FILE_ALTERED.ordinal)

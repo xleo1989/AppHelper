@@ -29,7 +29,10 @@ class XLeoDialog(val ctx: Context) : DialogInterface {
     private var isShowing: Boolean = false
 
     fun isShowing() = isShowing
-
+    /**
+     * x,y 屏幕定位位置，优先级小于gravity
+     * 未设置layoutparams时，添加默认配置
+     */
     fun show(x: Int, y: Int, gravity: Int) {
         if (isShowing) {
             dismiss()

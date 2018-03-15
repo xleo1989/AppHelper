@@ -51,4 +51,9 @@
         <attr name="ibActionName" format="string" />
 
     </declare-styleable>
+
+    <declare-styleable name="SarsView">
+        <attr name="beginHiden" format="boolean"/>
+        <attr name="defaultAdapter" format="boolean"/>
+    </declare-styleable>
 </resources>
