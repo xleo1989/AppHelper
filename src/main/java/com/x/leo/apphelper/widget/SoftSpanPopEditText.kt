@@ -11,7 +11,7 @@ import com.x.leo.apphelper.log.XLog
  * Created by XLEO on 2017/11/28.
  */
 class SoftSpanPopEditText {
-    private var movedDistence: Int = 0
+    private var movedDistance: Int = 0
     private var currentListener: ViewTreeObserver.OnGlobalLayoutListener? = null
     fun register(currentView: View, scrollRes: Int) {
         init(currentView, scrollRes)
@@ -23,9 +23,6 @@ class SoftSpanPopEditText {
     }
 
     private fun init(currentView: View, scrollRes: Int) {
-        if (currentView == null) {
-            return
-        }
         currentListener = ViewTreeObserver.OnGlobalLayoutListener {
             val r = Rect()
             currentView.getWindowVisibleDisplayFrame(r)
@@ -33,7 +30,7 @@ class SoftSpanPopEditText {
                 val vr = Rect()
                 currentView.getGlobalVisibleRect(vr)
                 if (vr.bottom > r.bottom) {
-                    var scrolledHeight = vr.bottom - r.bottom
+                    val scrolledHeight = vr.bottom - r.bottom
                     if (scrollRes != -1) {
                         try {
                             val find = currentView.rootView.findViewById<ScrollView>(scrollRes)
@@ -41,7 +38,7 @@ class SoftSpanPopEditText {
                             if (childAt != null) {
                                 if (childAt.height + find.paddingTop + find.paddingBottom + childAt.top - find.height > scrolledHeight) {
                                     find.smoothScrollBy(0, scrolledHeight)
-                                    movedDistence += scrolledHeight
+                                    movedDistance += scrolledHeight
                                 } else
                                     currentView.rootView.scrollTo(0, scrolledHeight)
                             } else {
@@ -65,15 +62,15 @@ class SoftSpanPopEditText {
                             val rect = Rect()
                             val offset = Point()
                             childAt.getGlobalVisibleRect(rect, offset)
-                            if (rect.top - offset.y >= movedDistence && movedDistence != 0)
-                                find.smoothScrollBy(0, -movedDistence)
+                            if (rect.top - offset.y >= movedDistance && movedDistance != 0)
+                                find.smoothScrollBy(0, -movedDistance)
                         }
                     } catch (e: Throwable) {
                         XLog.e("catch exception:", e, 100)
                     }
                 }
                 currentView.rootView.scrollTo(0, 0)
-                movedDistence = 0
+                movedDistance = 0
             }
         }
     }

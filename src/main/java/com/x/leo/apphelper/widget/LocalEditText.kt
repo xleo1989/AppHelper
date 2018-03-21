@@ -22,10 +22,10 @@ import java.util.regex.Pattern
 open class LocalEditText(ctx: Context, attributeSet: AttributeSet?) : EditText(ctx, attributeSet) {
     private var actionName: String = "no name set"
     private var pattern: String? = null
-    private var aleartColor: Int = Color.RED
+    private var alertColor: Int = Color.RED
     private var normalColor: Int = textColors.defaultColor
     private var scrollParent: Int = -1
-    var textChangerWatcher: ((text: Editable?) -> Unit)? = null
+    var textChangeWatcher: ((text: Editable?) -> Unit)? = null
 
     private var inputPattern: String? = null
 
@@ -42,7 +42,7 @@ open class LocalEditText(ctx: Context, attributeSet: AttributeSet?) : EditText(c
 
             if (attrs.hasValue(R.styleable.LocalEditText_legalPattern)) {
                 pattern = attrs.getString(R.styleable.LocalEditText_legalPattern)
-                aleartColor = attrs.getColor(R.styleable.LocalEditText_alertColor, Color.RED)
+                alertColor = attrs.getColor(R.styleable.LocalEditText_alertColor, Color.RED)
                 setCheckMode()
             }
             if (attrs.hasValue(R.styleable.LocalEditText_scrollParent)) {
@@ -54,7 +54,7 @@ open class LocalEditText(ctx: Context, attributeSet: AttributeSet?) : EditText(c
 
         addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                textChangerWatcher?.invoke(s)
+                textChangeWatcher?.invoke(s)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -91,7 +91,7 @@ open class LocalEditText(ctx: Context, attributeSet: AttributeSet?) : EditText(c
                 super.onTextChanged(s, start, before, count)
                 val result = Pattern.matches(if (inputPattern != null) inputPattern!! else pattern!!, s?.toString())
                 if (!result) {
-                    this@LocalEditText.setTextColor(aleartColor)
+                    this@LocalEditText.setTextColor(alertColor)
                 } else {
                     this@LocalEditText.setTextColor(normalColor)
                 }
@@ -102,7 +102,7 @@ open class LocalEditText(ctx: Context, attributeSet: AttributeSet?) : EditText(c
                 if (!hasFocus) {
                     val result = Pattern.matches(pattern!!, (v as EditText).text?.toString())
                     if (!result) {
-                        this@LocalEditText.setTextColor(aleartColor)
+                        this@LocalEditText.setTextColor(alertColor)
                     } else {
                         this@LocalEditText.setTextColor(normalColor)
                     }
@@ -114,7 +114,7 @@ open class LocalEditText(ctx: Context, attributeSet: AttributeSet?) : EditText(c
 
     fun setCheckMode(regex: String, errorColor: Int) {
         pattern = regex
-        aleartColor = errorColor
+        alertColor = errorColor
         setCheckMode()
     }
 
