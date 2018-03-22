@@ -111,6 +111,7 @@ class DialogErrorHandler : ErrorHandlerInterface {
 
     constructor(ctx: Context, message: String?) {
         localDialog = AlertDialog.Builder(ctx)
+                .setTitle(android.R.string.dialog_alert_title)
                 .setMessage(message)
     }
 
