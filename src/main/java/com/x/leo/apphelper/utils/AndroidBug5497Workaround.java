@@ -54,29 +54,27 @@ public class AndroidBug5497Workaround {
         if (mChildOfContent == null) {
             return;
         }
-        mChildOfContent.post(new Runnable() {
-            @Override
-            public void run() {
-                navigationBarHeight = getNavigationBarHeight(activity);
-                int screenHeight = getScreenHeight(activity);
-                int usableHeight = computeUsableHeight();
-                if (screenHeight - usableHeight < screenHeight / 4) {
-                    if (Build.VERSION.SDK_INT < 21) {
-                        unusableHeight = screenHeight - usableHeight - lStatusBarHeight - navigationBarHeight;
-                    } else {
-                        unusableHeight = screenHeight - usableHeight - navigationBarHeight;
-                    }
-                }
-                XLog.INSTANCE.i(10, "View height detail,navigationBarHeight:%d ,lStatusBarHeight: %d ,usableHeight: %d , unusableHeight: %d , screenHeight :  %d",
-                        navigationBarHeight, lStatusBarHeight, usableHeight, unusableHeight, screenHeight);
+        navigationBarHeight = getNavigationBarHeight(activity);
+        int screenHeight = getScreenHeight(activity);
+        int usableHeight = computeUsableHeight();
+        if (screenHeight - usableHeight < screenHeight / 4) {
+            if (Build.VERSION.SDK_INT < 21) {
+                unusableHeight = screenHeight - usableHeight - lStatusBarHeight - navigationBarHeight;
+            } else {
+                unusableHeight = screenHeight - usableHeight - navigationBarHeight;
             }
-        });
+        }
+        XLog.INSTANCE.i(10, "View height detail,navigationBarHeight:%d ,lStatusBarHeight: %d ,usableHeight: %d , unusableHeight: %d , screenHeight :  %d",
+                navigationBarHeight, lStatusBarHeight, usableHeight, unusableHeight, screenHeight);
+
         ViewTreeObserver.OnGlobalLayoutListener listener = new ViewTreeObserver.OnGlobalLayoutListener() {
             public void onGlobalLayout() {
                 possiblyResizeChildOfContent();
             }
         };
-        mChildOfContent.getViewTreeObserver().addOnGlobalLayoutListener(listener);
+        mChildOfContent.getViewTreeObserver().
+
+                addOnGlobalLayoutListener(listener);
         listenerHashMap.put(activity, listener);
         frameLayoutParams = (FrameLayout.LayoutParams) mChildOfContent.getLayoutParams();
     }
@@ -138,7 +136,7 @@ public class AndroidBug5497Workaround {
 
 
     private boolean isNavigationBarShow(@NotNull Activity activity) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             Display display = activity.getWindowManager().getDefaultDisplay();
             Point size = new Point();
             Point realSize = new Point();
