@@ -59,15 +59,16 @@ public class AndroidBug5497Workaround {
             public void run() {
                 navigationBarHeight = getNavigationBarHeight(activity);
                 int screenHeight = getScreenHeight(activity);
-                if (screenHeight - computeUsableHeight() < screenHeight / 4) {
+                int usableHeight = computeUsableHeight();
+                if (screenHeight - usableHeight < screenHeight / 4) {
                     if (Build.VERSION.SDK_INT < 21) {
-                        unusableHeight = screenHeight - computeUsableHeight() - lStatusBarHeight - navigationBarHeight;
+                        unusableHeight = screenHeight - usableHeight - lStatusBarHeight - navigationBarHeight;
                     } else {
-                        unusableHeight = screenHeight - computeUsableHeight() - navigationBarHeight;
+                        unusableHeight = screenHeight - usableHeight - navigationBarHeight;
                     }
                 }
-                XLog.INSTANCE.i(10, "View height detail,navigationBarHeight:%d ,lStatusBarHeight: %d , unusableHeight: %d , screenHeight :  %d",
-                        navigationBarHeight, lStatusBarHeight, unusableHeight, screenHeight);
+                XLog.INSTANCE.i(10, "View height detail,navigationBarHeight:%d ,lStatusBarHeight: %d ,usableHeight: %d , unusableHeight: %d , screenHeight :  %d",
+                        navigationBarHeight, lStatusBarHeight, usableHeight, unusableHeight, screenHeight);
             }
         });
         ViewTreeObserver.OnGlobalLayoutListener listener = new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -127,17 +128,17 @@ public class AndroidBug5497Workaround {
             lStatusBarHeight = r.top;
         }
         if (Build.VERSION.SDK_INT >= 21) {
-            XLog.INSTANCE.i(10, "full screen mode:%d,usable height: %d", r.top, r.bottom);
+//            XLog.INSTANCE.i(10, "full screen mode:%d,usable height: %d", r.top, r.bottom);
             return r.bottom;
         } else {
-            XLog.INSTANCE.i(10, "not full screen mode:%d,usable height: %d", r.top, r.bottom - r.top);
+//            XLog.INSTANCE.i(10, "not full screen mode:%d,usable height: %d", r.top, r.bottom - r.top);
             return (r.bottom - r.top);// 全屏模式下： return r.bottom
         }
     }
 
 
     private boolean isNavigationBarShow(@NotNull Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1) {
             Display display = activity.getWindowManager().getDefaultDisplay();
             Point size = new Point();
             Point realSize = new Point();
@@ -153,7 +154,7 @@ public class AndroidBug5497Workaround {
 
     private int getNavigationBarHeight(@NotNull Activity activity) {
         if (!isNavigationBarShow(activity)) {
-            XLog.INSTANCE.i(10, "navigation bar shown:false");
+//            XLog.INSTANCE.i(10, "navigation bar shown:false");
             return 0;
         }
         Resources resources = activity.getResources();
@@ -161,7 +162,7 @@ public class AndroidBug5497Workaround {
                 "dimen", "android");
         //获取NavigationBar的高度
         int dimensionPixelSize = resources.getDimensionPixelSize(resourceId);
-        XLog.INSTANCE.i(10, "navigation bar height: %d", dimensionPixelSize);
+//        XLog.INSTANCE.i(10, "navigation bar height: %d", dimensionPixelSize);
         return dimensionPixelSize;
     }
 
