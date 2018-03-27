@@ -12,42 +12,42 @@ class ErrorHandler {
     companion object {
         fun createMultipleHandler(builder: Builder, vararg args: HandleType) {
             args.forEach {
-                builder.setEType(it)
+                builder.setType(it)
                 builder.createHandler()?.show()
             }
         }
     }
 
     class Builder {
-        var callback: CallBack? = null
-        var type: HandleType = HandleType.LOG
-        var message: String? = null
-        var view: View? = null
-        var ctx: Context? = null
-        var customeClazz:Class<CustomizeErrorHandler>? = null
-        fun setECallback(callback: CallBack?): Builder {
+       private var callback: CallBack? = null
+       private var type: HandleType = HandleType.LOG
+       private var message: String? = null
+       private var view: View? = null
+       private var ctx: Context? = null
+       private var customeClazz:Class<CustomizeErrorHandler>? = null
+        fun setCallback(callback: CallBack?): Builder {
             this.callback = callback
             return this
         }
 
-        fun setEType(type: HandleType): Builder {
+        fun setType(type: HandleType): Builder {
             if (this.type != type) {
                 this.type = type
             }
             return this
         }
 
-        fun setEMessage(message: String?): Builder {
+        fun setMessage(message: String?): Builder {
             this.message = message
             return this
         }
 
-        fun setEView(view: View): Builder {
+        fun setView(view: View): Builder {
             this.view = view
             return this
         }
 
-        fun setEContext(ctx: Context): Builder {
+        fun setContext(ctx: Context): Builder {
             this.ctx = ctx
             return this
         }
