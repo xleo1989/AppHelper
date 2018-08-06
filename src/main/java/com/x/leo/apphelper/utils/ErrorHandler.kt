@@ -3,7 +3,7 @@ package com.x.leo.apphelper.utils
 import android.app.AlertDialog
 import android.content.Context
 import android.view.View
-import com.x.leo.apphelper.log.XLog
+import com.x.leo.apphelper.log.xlog.XLog
 
 /**
  * Created by XLEO on 2018/3/16.

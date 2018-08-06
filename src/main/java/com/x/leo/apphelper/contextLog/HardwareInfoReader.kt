@@ -2,7 +2,7 @@ package com.x.leo.apphelper.contextLog
 
 import android.content.Context
 import android.content.res.Configuration
-import com.x.leo.apphelper.log.XLog
+import com.x.leo.apphelper.log.xlog.XLog
 import java.io.*
 import android.app.UiModeManager
 import android.os.Build

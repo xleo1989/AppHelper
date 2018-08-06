@@ -7,7 +7,7 @@ import android.graphics.Rect
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.ScrollView
-import com.x.leo.apphelper.log.XLog
+import com.x.leo.apphelper.log.xlog.XLog
 import android.os.Build
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout

@@ -14,7 +14,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
-import com.x.leo.apphelper.log.XLog;
+import com.x.leo.apphelper.log.xlog.XLog;
 
 import org.jetbrains.annotations.NotNull;
 

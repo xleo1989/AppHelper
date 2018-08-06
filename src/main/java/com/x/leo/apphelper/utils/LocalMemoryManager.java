@@ -4,7 +4,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Debug;
 
-import com.x.leo.apphelper.log.XLog;
+import com.x.leo.apphelper.log.xlog.XLog;
 
 /**
  * @作者:My

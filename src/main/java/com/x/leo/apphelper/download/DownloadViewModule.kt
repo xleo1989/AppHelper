@@ -11,7 +11,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import com.x.leo.apphelper.R
-import com.x.leo.apphelper.log.XLog
+import com.x.leo.apphelper.log.xlog.XLog
 
 /**
  * Created by XLEO on 2018/4/9.

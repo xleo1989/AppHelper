@@ -6,7 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Looper
 import com.tbruyelle.rxpermissions.RxPermissions
-import com.x.leo.apphelper.log.XLog
+import com.x.leo.apphelper.log.xlog.XLog
 import com.x.leo.apphelper.utils.ThreadPoolManager
 import org.json.JSONArray
 import org.json.JSONObject

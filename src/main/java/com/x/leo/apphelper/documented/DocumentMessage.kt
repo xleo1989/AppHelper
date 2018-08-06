@@ -2,9 +2,8 @@ package com.x.leo.apphelper.documented
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.x.leo.apphelper.log.XLog
+import com.x.leo.apphelper.log.xlog.XLog
 import com.x.leo.apphelper.utils.AppStateUtils
-import java.util.concurrent.locks.ReentrantLock
 
 /**
  * @作者:XLEO

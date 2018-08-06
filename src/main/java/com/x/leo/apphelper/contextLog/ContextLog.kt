@@ -14,7 +14,7 @@ import android.provider.Settings
 import android.telephony.SubscriptionManager
 import android.telephony.TelephonyManager
 import android.text.TextUtils
-import com.x.leo.apphelper.log.XLog
+import com.x.leo.apphelper.log.xlog.XLog
 import com.x.leo.apphelper.utils.BrandUtils
 import com.x.leo.apphelper.utils.ThreadPoolManager
 import java.nio.charset.Charset

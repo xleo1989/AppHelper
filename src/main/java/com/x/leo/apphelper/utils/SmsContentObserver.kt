@@ -6,7 +6,7 @@ import android.net.Uri
 import android.os.Handler
 import android.os.Message
 import android.text.TextUtils
-import com.x.leo.apphelper.log.XLog
+import com.x.leo.apphelper.log.xlog.XLog
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.regex.Pattern

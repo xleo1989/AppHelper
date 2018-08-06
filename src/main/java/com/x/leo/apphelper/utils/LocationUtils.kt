@@ -5,7 +5,7 @@ import android.content.Context
 import android.location.*
 import android.os.Looper
 import android.os.NetworkOnMainThreadException
-import com.x.leo.apphelper.log.XLog
+import com.x.leo.apphelper.log.xlog.XLog
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,10 +18,7 @@ import java.io.IOException
 import java.io.Serializable
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
-import java.sql.Timestamp
 import java.util.concurrent.TimeUnit
-import kotlin.experimental.and
-import kotlin.experimental.or
 
 
 /**

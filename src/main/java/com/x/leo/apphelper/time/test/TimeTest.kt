@@ -1,7 +1,6 @@
 package com.x.leo.apphelper.time.test
 
-import com.x.leo.apphelper.log.LocalPrinter
-import com.x.leo.apphelper.log.StackInfoUtils
+import com.x.leo.apphelper.log.xlog.StackInfoUtils
 
 /**
  * @作者:XLEO

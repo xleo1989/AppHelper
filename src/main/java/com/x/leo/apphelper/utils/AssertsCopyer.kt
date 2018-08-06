@@ -3,7 +3,7 @@ package com.x.leo.apphelper.utils
 import android.content.Context
 import android.content.res.AssetManager
 import com.x.leo.apphelper.documented.DocumentMessage
-import com.x.leo.apphelper.log.XLog
+import com.x.leo.apphelper.log.xlog.XLog
 import rx.Observable
 import java.io.File
 import java.io.FileOutputStream

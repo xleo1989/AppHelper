@@ -2,7 +2,7 @@ package com.x.leo.apphelper.netty
 
 import com.google.protobuf.AbstractMessage
 import com.google.protobuf.MessageLite
-import com.x.leo.apphelper.log.XLog
+import com.x.leo.apphelper.log.xlog.XLog
 import io.netty.bootstrap.Bootstrap
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelInboundHandlerAdapter

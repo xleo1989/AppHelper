@@ -5,7 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.os.Build;
 
-import com.x.leo.apphelper.log.XLog;
+import com.x.leo.apphelper.log.xlog.XLog;
 
 import java.io.BufferedReader;
 import java.io.File;

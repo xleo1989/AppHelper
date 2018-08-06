@@ -2,9 +2,6 @@ package com.x.leo.apphelper.widget.sars
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.TextView
-import com.x.leo.apphelper.R
-import com.x.leo.apphelper.log.XLog
 
 /**
  * Created by XLEO on 2018/1/25.

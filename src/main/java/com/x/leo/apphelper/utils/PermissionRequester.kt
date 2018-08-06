@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Build
 import android.app.Fragment
-import com.x.leo.apphelper.log.XLog
+import com.x.leo.apphelper.log.xlog.XLog
 import rx.Subscriber
 
 /**

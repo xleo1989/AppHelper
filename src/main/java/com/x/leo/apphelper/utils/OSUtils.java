@@ -3,7 +3,7 @@ package com.x.leo.apphelper.utils;
 import android.text.TextUtils;
 
 import com.x.leo.apphelper.documented.DocumentMessage;
-import com.x.leo.apphelper.log.XLog;
+import com.x.leo.apphelper.log.xlog.XLog;
 
 import java.io.IOException;
 

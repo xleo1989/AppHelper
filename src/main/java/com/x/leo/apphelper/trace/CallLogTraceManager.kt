@@ -7,7 +7,7 @@ import android.content.pm.PackageManager
 import android.provider.CallLog
 import android.support.v4.content.ContextCompat
 import android.text.TextUtils
-import com.x.leo.apphelper.log.XLog
+import com.x.leo.apphelper.log.xlog.XLog
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject

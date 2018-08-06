@@ -9,7 +9,7 @@ import android.provider.Settings;
 import android.support.v4.content.PermissionChecker;
 import android.telephony.TelephonyManager;
 
-import com.x.leo.apphelper.log.XLog;
+import com.x.leo.apphelper.log.xlog.XLog;
 import com.x.leo.apphelper.utils.ThreadPoolManager;
 
 import org.json.JSONObject;

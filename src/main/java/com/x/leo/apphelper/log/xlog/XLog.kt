@@ -33,7 +33,7 @@ object XLog {
     private val TOP_LEFT_CORNER = '╔'
     private val BOTTOM_LEFT_CORNER = '╚'
     private val MIDDLE_CORNER = '╟'
-    private val HORIZONTAL_DOUBLE_LINE = '║'
+    private val VERTICAL_DOUBLE_LINE = '║'
     private val DOUBLE_DIVIDER = "════════════════════════════════════════════"
     private val SINGLE_DIVIDER = "────────────────────────────────────────────"
     private val methodIndex = 4
@@ -155,10 +155,10 @@ object XLog {
     private fun e(message: String?, e: Throwable?, priority: Int, extra: Int) {
         if (isLoggable() && currentLogLevel <= ERROR && (priority == currentPriority || priority >= currentPriority && !isStrict)) {
             val tag = StackInfoUtils.getFileName(methodIndex + extra)
-            val builder = StringBuilder("" + message + "\n" + e?.javaClass?.name + "\n" + e?.message + "\n")
+            val builder = StringBuilder("" + message + "\n" + VERTICAL_DOUBLE_LINE +  e?.javaClass?.name + "\n" + VERTICAL_DOUBLE_LINE + e?.message + "\n")
             e?.stackTrace?.forEach {
                 try {
-                    builder.append(it.className + "_" + it.methodName + "() :(" + it.fileName + ":" + it.lineNumber + ")\n")
+                    builder.append(VERTICAL_DOUBLE_LINE).append("at  ").append(it.className + "_" + it.methodName + "() :(" + it.fileName + ":" + it.lineNumber + ")\n")
                 } catch (e: Throwable) {
                     e.printStackTrace()
                 }
@@ -199,7 +199,7 @@ object XLog {
             sb.append(TOP_LEFT_CORNER)
                     .append(DOUBLE_DIVIDER)
                     .append("\n")
-                    .append(HORIZONTAL_DOUBLE_LINE)
+                    .append(VERTICAL_DOUBLE_LINE)
                     .append("Thread:")
                     .append(Thread.currentThread().name)
                     .append("(")
@@ -211,7 +211,7 @@ object XLog {
                     .append(":")
                     .append(StackInfoUtils.getLineNumber(methodIndex + 2))
                     .append(")\n")
-                    .append(HORIZONTAL_DOUBLE_LINE)
+                    .append(VERTICAL_DOUBLE_LINE)
                     .append(SINGLE_DIVIDER)
                     .append("\n")
                     .append(MIDDLE_CORNER)
